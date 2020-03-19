@@ -1,7 +1,7 @@
 # MyGeekAcademy
 
 ## Documentation
-[tap here](../docs)
+[tap here](./docs)
 
 ## Links
 
