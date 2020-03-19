@@ -1,7 +1,13 @@
 # MyGeekAcademy
 
 ## Documentation
-[tap here](./docs)
+[All](./docs)
+
++ [System Purpose](./docs/SYSTEM_PURPOSE.md)
+
++ [Behavioral Requiremenrs](.docs/BEHAVIORAL_REQUIREMENTS.md)
+
++ [UI](./docs/USER_INTERFACE.md)
 
 ## Links
 
