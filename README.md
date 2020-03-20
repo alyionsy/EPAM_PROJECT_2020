@@ -19,6 +19,8 @@ My Geek Academy - библиотека для фанатов комиксов, �
 
 + [UI](./docs/USER_INTERFACE.md)
 
++ [DEADLINES](./docs/DEADLINES.md)
+
 ## Links
 
 [Backlog](https://trello.com/b/5UadMFgM/my-geek-academy-library-project)
