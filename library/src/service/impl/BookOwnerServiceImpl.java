@@ -6,11 +6,14 @@ import domain.BookOwner;
 import exception.ValidationException;
 import service.BookOwnerService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class BookOwnerServiceImpl implements BookOwnerService {
 
     private static final BookOwnerDAO dao = DAOFactory.getBookOwnerDAO();
     @Override
-    public BookOwner create(BookOwner owner) {
+    public BookOwner create(BookOwner owner) throws IOException {
         if (owner == null) {
             throw new ValidationException("Invalid book owner");
         }
@@ -44,7 +47,7 @@ public class BookOwnerServiceImpl implements BookOwnerService {
     }
 
     @Override
-    public void delete(BookOwner owner) {
+    public void delete(BookOwner owner) throws IOException {
         if (owner == null) {
             throw new ValidationException("Invalid owner");
         }

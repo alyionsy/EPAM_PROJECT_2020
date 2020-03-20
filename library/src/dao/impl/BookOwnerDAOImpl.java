@@ -10,9 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BookOwnerDAOImpl implements BookOwnerDAO {
 
+    public static final int MAX_QUANTITY = 500;
+
     @Override
     public BookOwner create(BookOwner entity) {
-        entity.setId(ThreadLocalRandom.current().nextLong());
+        entity.setId((long) (Math.random() * MAX_QUANTITY));
         DataBase.addBookOwner(entity);
         return entity;
     }

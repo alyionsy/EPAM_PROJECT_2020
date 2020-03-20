@@ -4,13 +4,15 @@ import domain.Book;
 import service.BookService;
 import service.impl.BookServiceImpl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class BookAction {
 
     private static BookService service = new BookServiceImpl();
 
-    public static void addBook() {
+    public static void addBook() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter book's name:");
@@ -24,7 +26,7 @@ public class BookAction {
             book.setAuthor(scanner.next());
         }
 
-        System.out.println("Enter book's discription:");
+        System.out.println("Enter book's description:");
         if (scanner.hasNext()) {
             book.setDescription(scanner.next());
         }
@@ -34,11 +36,15 @@ public class BookAction {
         System.out.println(book);
     }
 
-    public static void updateBookName() {
+    public static void updateBookName() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter book's new name:");
         Book book = new Book();
+        System.out.println("Enter book's name:");
+        if (scanner.hasNext()) {
+            book = service.findByName(scanner.next());
+        }
+        System.out.println("Enter book's new name:");
         if (scanner.hasNext()) {
             book.setName(scanner.next());
         }
@@ -48,7 +54,7 @@ public class BookAction {
         System.out.println(book);
     }
 
-    public static void updateBookAuthor() {
+    public static void updateBookAuthor() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         Book book = new Book();
@@ -66,7 +72,7 @@ public class BookAction {
         System.out.println(book);
     }
 
-    public static void updateBookDescription() {
+    public static void updateBookDescription() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter book's new description:");
@@ -80,7 +86,7 @@ public class BookAction {
         System.out.println(book);
     }
 
-    public static void deleteBook() {
+    public static void deleteBook() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         Book book = new Book();
@@ -89,5 +95,9 @@ public class BookAction {
             book = service.findByName(scanner.next());
         }
         service.delete(book);
+    }
+
+    public static void listAllBooks() throws IOException, ClassNotFoundException {
+        service.listAllBooks();
     }
 }

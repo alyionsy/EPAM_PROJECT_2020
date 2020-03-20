@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class AbstractEntity<K> {
+public abstract class AbstractEntity<K> implements Serializable {
 
     private K id;
 

@@ -14,23 +14,32 @@ public class DataBase {
     private static List<BookOwner> allOwners = new ArrayList<>();
     private static List<Order> allOrders = new ArrayList<>();
 
-    public DataBase() throws FileNotFoundException {
+    public DataBase() throws IOException, ClassNotFoundException {
         readBookArray();
         readBookOwnerArray();
         readOrderArray();
     }
 
-    private static void readBookArray() throws FileNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(FILE_NAME_BOOKS);
+    private static void readBookArray() {
+        try {
+            FileInputStream fi = new FileInputStream(new File(FILE_NAME_BOOKS));
+            ObjectInputStream oi = new ObjectInputStream(fi);
 
-        try(ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)){
-            int bookCounter = objectInputStream.readInt();
+            int bookCounter = oi.readInt();
             for (int i = 0; i < bookCounter; i++) {
-                allBooks.add((Book)objectInputStream.readObject());
+                allBooks.add((Book) oi.readObject());
             }
-        } catch (IOException | ClassNotFoundException e) {
+
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void readBookOwnerArray() throws FileNotFoundException {
@@ -57,6 +66,7 @@ public class DataBase {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     public static List<Book> getAllBooks() {
@@ -82,14 +92,17 @@ public class DataBase {
         allOrders.add(order);
     }
 
-    private static void writeBookArray() throws FileNotFoundException {
-        FileOutputStream fileOutputStream = new FileOutputStream(FILE_NAME_BOOKS);
-
-        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)){
-            objectOutputStream.writeInt(allBooks.size());
-            for(Book book: allBooks) {
-                objectOutputStream.writeObject(book);
+    private static void writeBookArray() throws IOException {
+        try {
+            FileOutputStream f = new FileOutputStream(new File(FILE_NAME_BOOKS));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            o.writeInt(allBooks.size());
+            for (Book book : allBooks) {
+//                o.writeLong(book.getId());
+                o.writeObject(book);
             }
+            o.close();
+            f.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,7 +134,7 @@ public class DataBase {
         }
     }
 
-    public static void writeAll() throws FileNotFoundException {
+    public static void writeAll() throws IOException {
         writeBookArray();
         writeBookOwnerArray();
         writeOrderArray();

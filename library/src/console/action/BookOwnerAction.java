@@ -5,13 +5,15 @@ import domain.BookOwner;
 import service.BookOwnerService;
 import service.impl.BookOwnerServiceImpl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class BookOwnerAction {
 
     private static BookOwnerService service = new BookOwnerServiceImpl();
 
-    public static void addBookOwner() {
+    public static void addBookOwner() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter book owner's name:");
@@ -55,7 +57,7 @@ public class BookOwnerAction {
 
         System.out.println(owner);
     }
-    public static void deleteBookOwner() {
+    public static void deleteBookOwner() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         BookOwner owner = new BookOwner();

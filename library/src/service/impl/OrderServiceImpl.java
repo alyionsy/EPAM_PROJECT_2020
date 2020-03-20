@@ -7,12 +7,15 @@ import domain.Order;
 import exception.ValidationException;
 import service.OrderService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class OrderServiceImpl implements OrderService {
 
     private static final OrderDAO dao = DAOFactory.getOrderDAO();
 
     @Override
-    public Order create(Order order) {
+    public Order create(Order order) throws IOException {
         if (order == null) {
             throw new ValidationException("Invalid order");
         }
