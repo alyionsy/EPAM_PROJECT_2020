@@ -1,9 +1,11 @@
-package domain;
+package domain.serializator;
+
+import domain.Order;
 
 import java.io.*;
 
-public class BookSerializator {
-    public boolean serialization(Book book, String fileName) {
+public class OrderSerializator {
+    public boolean serialization(Order order, String fileName) {
         boolean flag = false;
         File f = new File(fileName);
         ObjectOutputStream ostream = null;
@@ -11,7 +13,7 @@ public class BookSerializator {
             FileOutputStream fos = new FileOutputStream(f);
             if (fos != null) {
                 ostream = new ObjectOutputStream(fos);
-                ostream.writeObject(book); // serialization
+                ostream.writeObject(order); // serialization
                 flag = true;
             }
         } catch (FileNotFoundException e) {
@@ -32,14 +34,14 @@ public class BookSerializator {
         return flag;
     }
 
-    public Book deserialization(String fileName) throws InvalidObjectException {
+    public Order deserialization(String fileName) throws InvalidObjectException {
         File fr = new File(fileName);
         ObjectInputStream istream = null;
         try {
             FileInputStream fis = new FileInputStream(fr);
             istream = new ObjectInputStream(fis); // deserialization
-            Book book = (Book) istream.readObject();
-            return book;
+            Order order = (Order) istream.readObject();
+            return order;
         } catch (ClassNotFoundException ce) { System.err.println("Class does not exist: " + ce);
         } catch (FileNotFoundException e) {
             System.err.println("Deserialization file does not exist: "+ e);

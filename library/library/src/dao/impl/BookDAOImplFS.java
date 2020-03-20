@@ -2,12 +2,13 @@ package dao.impl;
 
 import dao.BookDAO;
 import domain.Book;
+import domain.serializator.BookSerializator;
 
 import java.util.List;
 
 public class BookDAOImplFS implements BookDAO {
 
-    private String path = "src/res/data.txt";
+    public static final String FILE_NAME = "src/res/bookData.txt";
 
     @Override
     public Book findByName(String name) {
@@ -21,7 +22,9 @@ public class BookDAOImplFS implements BookDAO {
 
     @Override
     public Book create(Book entity) {
-        return null;
+        BookSerializator sz = new BookSerializator();
+        boolean b = sz.serialization(entity, FILE_NAME);
+        return entity;
     }
 
     @Override
@@ -31,8 +34,7 @@ public class BookDAOImplFS implements BookDAO {
 
     @Override
     public List<Book> readAll() {
-        List<Book> books;
-
+        return null;
     }
 
     @Override
@@ -44,4 +46,5 @@ public class BookDAOImplFS implements BookDAO {
     public void delete(Book entity) {
 
     }
+
 }

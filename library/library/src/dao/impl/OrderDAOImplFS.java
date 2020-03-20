@@ -3,10 +3,14 @@ package dao.impl;
 import dao.OrderDAO;
 import domain.BookOwner;
 import domain.Order;
+import domain.serializator.OrderSerializator;
 
 import java.util.List;
 
 public class OrderDAOImplFS implements OrderDAO {
+
+    public static final String FILE_NAME = "src/res/orderData.txt";
+
     @Override
     public Order findOrderByOwner(BookOwner owner) {
         return null;
@@ -14,7 +18,9 @@ public class OrderDAOImplFS implements OrderDAO {
 
     @Override
     public Order create(Order entity) {
-        return null;
+        OrderSerializator sz = new OrderSerializator();
+        boolean b = sz.serialization(entity, FILE_NAME);
+        return entity;
     }
 
     @Override

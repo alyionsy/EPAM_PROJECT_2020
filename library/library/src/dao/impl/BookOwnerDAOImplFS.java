@@ -2,10 +2,14 @@ package dao.impl;
 
 import dao.BookOwnerDAO;
 import domain.BookOwner;
+import domain.serializator.BookOwnerSerializator;
 
 import java.util.List;
 
 public class BookOwnerDAOImplFS implements BookOwnerDAO {
+
+    public static final String FILE_NAME = "src/res/bookOwnerData.txt";
+
     @Override
     public BookOwner findByUsername(String username) {
         return null;
@@ -13,7 +17,9 @@ public class BookOwnerDAOImplFS implements BookOwnerDAO {
 
     @Override
     public BookOwner create(BookOwner entity) {
-        return null;
+        BookOwnerSerializator sz = new BookOwnerSerializator();
+        boolean b = sz.serialization(entity, FILE_NAME);
+        return entity;
     }
 
     @Override
