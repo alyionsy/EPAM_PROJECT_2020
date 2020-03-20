@@ -50,8 +50,12 @@ public class BookActions {
     public static void updateBookAuthor() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter book's new author:");
         Book book = new Book();
+        System.out.println("Enter book's name:");
+        if (scanner.hasNext()) {
+            book = service.findByName(scanner.next());
+        }
+        System.out.println("Enter book's new author:");
         if (scanner.hasNext()) {
             book.setAuthor(scanner.next());
         }
@@ -67,7 +71,7 @@ public class BookActions {
         System.out.println("Enter book's new description:");
         Book book = new Book();
         if (scanner.hasNext()) {
-            book.setAuthor(scanner.next());
+            book.setDescription(scanner.next());
         }
 
         book = service.update(book);
@@ -76,6 +80,13 @@ public class BookActions {
     }
 
     public static void deleteBook() {
+        Scanner scanner = new Scanner(System.in);
 
+        Book book = new Book();
+        System.out.println("Enter book's name:");
+        if (scanner.hasNext()) {
+            book = service.findByName(scanner.next());
+        }
+        service.delete(book);
     }
 }

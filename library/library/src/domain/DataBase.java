@@ -77,6 +77,17 @@ public class DataBase {
         }
     }
 
+    public static List<Book> getAllBooks() {
+        return allBooks;
+    }
+
+    public static List<BookOwner> getAllOwners() {
+        return allOwners;
+    }
+    public static List<Order> getAllOrders() {
+        return allOrders;
+    }
+
     public static void addBook(Book book) {
         allBooks.add(book);
     }

@@ -63,7 +63,7 @@ public class BookOwner extends AbstractEntity<Long> {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "CarOwner{" +
+        return "BookOwner{" +
                 "username=" + username +
                 ", password=" + password +
                 ", bookOwnerName=" + bookOwnerName +

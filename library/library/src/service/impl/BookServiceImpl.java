@@ -3,7 +3,6 @@ package service.impl;
 import dao.BookDAO;
 import dao.DAOFactory;
 import domain.Book;
-import domain.DataBase;
 import exception.ValidationException;
 import service.BookService;
 
@@ -46,6 +45,26 @@ public class BookServiceImpl implements BookService {
             throw new ValidationException("Author is required");
         }
 
-        return dao.update(book);
+        dao.update(book);
+        return book;
+    }
+
+    @Override
+    public void delete(Book book) {
+        if (book == null) {
+            throw new ValidationException("Invalid book");
+        }
+
+        dao.delete(book);
+    }
+
+    @Override
+    public Book findByName(String name) {
+        return dao.findByName(name);
+    }
+
+    @Override
+    public Book findByAuthor(String author) {
+        return dao.findByAuthor(author);
     }
 }

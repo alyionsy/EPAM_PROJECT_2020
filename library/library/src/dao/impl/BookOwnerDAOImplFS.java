@@ -17,9 +17,7 @@ public class BookOwnerDAOImplFS implements BookOwnerDAO {
 
     @Override
     public BookOwner create(BookOwner entity) {
-        BookOwnerSerializator sz = new BookOwnerSerializator();
-        boolean b = sz.serialization(entity, FILE_NAME);
-        return entity;
+
     }
 
     @Override

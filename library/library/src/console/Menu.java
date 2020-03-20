@@ -3,16 +3,12 @@ package console;
 import console.actions.BookActions;
 import console.actions.BookOwnerActions;
 import console.actions.OrderActions;
-import domain.DataBase;
 
 import java.util.Scanner;
 
 public class Menu {
     int c;
     public void ShowMainMenu() {
-        BookActions bookActions = new BookActions();
-        BookOwnerActions bookOwnerActions = new BookOwnerActions();
-        OrderActions orderActions = new OrderActions();
         Scanner ui = new Scanner(System.in);
         while (true) {
             System.out.println("-----Main menu------");

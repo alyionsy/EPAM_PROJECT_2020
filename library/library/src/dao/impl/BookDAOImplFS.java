@@ -3,30 +3,33 @@ package dao.impl;
 import dao.BookDAO;
 import domain.Book;
 import domain.DataBase;
-import domain.serializator.BookSerializator;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BookDAOImplFS implements BookDAO {
 
     @Override
     public Book findByName(String name) {
+        for (Book book : DataBase.getAllBooks()) {
+            if (book.getName().equals(name))
+                return book;
+        }
         return null;
     }
 
     @Override
     public Book findByAuthor(String author) {
+        for (Book book : DataBase.getAllBooks()) {
+            if (book.getAuthor().equals(author))
+                return book;
+        }
         return null;
     }
 
     @Override
     public Book create(Book entity) {
-        DataBase db = new DataBase();
-        db.addBook(entity);
+        entity.setId(ThreadLocalRandom.current().nextLong());
+        DataBase.addBook(entity);
         return entity;
     }
 
@@ -37,16 +40,23 @@ public class BookDAOImplFS implements BookDAO {
 
     @Override
     public List<Book> readAll() {
+        return DataBase.getAllBooks();
     }
 
     @Override
     public void update(Book entity) {
-
+        for (Book book: DataBase.getAllBooks()) {
+            if (book.getId() == entity.getId()) {
+                book.setName(entity.getName());
+                book.setAuthor(entity.getAuthor());
+                book.setDescription(entity.getDescription());
+            }
+        }
     }
 
     @Override
     public void delete(Book entity) {
-
+        DataBase.getAllBooks().removeIf(book -> book.getId().equals(entity.getId()));
     }
 
 }

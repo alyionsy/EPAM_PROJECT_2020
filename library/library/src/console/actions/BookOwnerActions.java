@@ -8,7 +8,9 @@ public class BookOwnerActions {
 
     private static BookOwnerService service = new BookOwnerServiceImpl();
 
-    public static void addBookOwner() {}
+    public static void addBookOwner() {
+
+    }
     public static void updateBookOwner() {}
     public static void deleteBookOwner() {}
 }
