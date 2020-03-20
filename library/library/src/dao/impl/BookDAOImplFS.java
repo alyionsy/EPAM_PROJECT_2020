@@ -2,13 +2,16 @@ package dao.impl;
 
 import dao.BookDAO;
 import domain.Book;
+import domain.DataBase;
 import domain.serializator.BookSerializator;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDAOImplFS implements BookDAO {
-
-    public static final String FILE_NAME = "src/res/bookData.txt";
 
     @Override
     public Book findByName(String name) {
@@ -22,8 +25,8 @@ public class BookDAOImplFS implements BookDAO {
 
     @Override
     public Book create(Book entity) {
-        BookSerializator sz = new BookSerializator();
-        boolean b = sz.serialization(entity, FILE_NAME);
+        DataBase db = new DataBase();
+        db.addBook(entity);
         return entity;
     }
 
@@ -34,7 +37,6 @@ public class BookDAOImplFS implements BookDAO {
 
     @Override
     public List<Book> readAll() {
-        return null;
     }
 
     @Override

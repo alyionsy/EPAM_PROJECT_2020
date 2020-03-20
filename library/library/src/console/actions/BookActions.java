@@ -1,9 +1,13 @@
 package console.actions;
 
 import domain.Book;
+import domain.DataBase;
 import service.BookService;
 import service.impl.BookServiceImpl;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BookActions {
@@ -71,5 +75,7 @@ public class BookActions {
         System.out.println(book);
     }
 
-    public static void deleteBook() {}
+    public static void deleteBook() {
+
+    }
 }

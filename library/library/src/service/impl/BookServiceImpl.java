@@ -3,6 +3,7 @@ package service.impl;
 import dao.BookDAO;
 import dao.DAOFactory;
 import domain.Book;
+import domain.DataBase;
 import exception.ValidationException;
 import service.BookService;
 
