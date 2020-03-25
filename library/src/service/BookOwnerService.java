@@ -9,5 +9,6 @@ public interface BookOwnerService {
     BookOwner create(BookOwner owner) throws IOException;
     BookOwner update(BookOwner owner);
     void delete(BookOwner owner) throws IOException;
-    BookOwner findByNumber(String number);
+    BookOwner read(long id);
+    void listAllOwners() throws IOException, ClassNotFoundException;
 }

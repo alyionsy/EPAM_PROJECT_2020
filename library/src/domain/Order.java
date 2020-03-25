@@ -7,10 +7,10 @@ public class Order extends AbstractEntity<Long> implements Serializable {
     private BookOwner owner;
     private List<Book> takenBooks;
 
-    public Order(BookOwner owner, List<Book> takenBooks) {
-        this.owner = owner;
-        this.takenBooks = takenBooks; // can be empty
-    }
+//    public Order(BookOwner owner, List<Book> takenBooks) {
+//        this.owner = owner;
+//        this.takenBooks = takenBooks; // can be empty
+//    }
 
     public void setOwner(BookOwner owner) {
         this.owner = owner;
@@ -43,9 +43,15 @@ public class Order extends AbstractEntity<Long> implements Serializable {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Order{" +
-                "owner=" + owner +
-                ", takenBooks=" + takenBooks.toString() +
-                '}';
+        return "Order{"
+                + "id='" + getId()
+                + '\''
+                + ", owner='"
+                + owner
+                + '\''
+                + ", takenBooks="
+                + takenBooks
+                + '\''
+                + '}';
     }
 }

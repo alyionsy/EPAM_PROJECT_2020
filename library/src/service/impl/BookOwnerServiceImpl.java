@@ -2,12 +2,14 @@ package service.impl;
 
 import dao.BookOwnerDAO;
 import dao.DAOFactory;
+import domain.Book;
 import domain.BookOwner;
 import exception.ValidationException;
 import service.BookOwnerService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class BookOwnerServiceImpl implements BookOwnerService {
 
@@ -28,16 +30,6 @@ public class BookOwnerServiceImpl implements BookOwnerService {
             throw new ValidationException("Book owner's 2nd name is required");
         }
 
-        String bookOwnerNumber = owner.getBookOwnerNumber();
-        if (bookOwnerNumber == null || bookOwnerNumber.isEmpty()) {
-            throw new ValidationException("Book owner's reading number is required");
-        }
-
-        if (bookOwnerNumber.length() > 6 || bookOwnerNumber.length() < 1) {
-            throw new ValidationException("Book owner's number is in wrong format." +
-                    "It must be longer than 1 symbol and shorter than 6 symbols");
-        }
-
         return dao.create(owner);
     }
 
@@ -56,7 +48,16 @@ public class BookOwnerServiceImpl implements BookOwnerService {
     }
 
     @Override
-    public BookOwner findByNumber(String number) {
-        return dao.findByNumber(number);
+    public BookOwner read(long id) {
+        return dao.read(id);
+    }
+
+    @Override
+    public void listAllOwners() throws IOException, ClassNotFoundException {
+        List<BookOwner> allOwners = dao.readAll();
+        for (BookOwner owners : allOwners) {
+            System.out.println(owners + "\n");
+        }
+        System.out.println(allOwners.size() + "\n");
     }
 }

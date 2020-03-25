@@ -73,6 +73,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book read(long id) {
+        return dao.read(id);
+    }
+
+    @Override
     public void listAllBooks() throws IOException, ClassNotFoundException {
         List<Book> allBooks = dao.readAll();
         for (Book book : allBooks) {

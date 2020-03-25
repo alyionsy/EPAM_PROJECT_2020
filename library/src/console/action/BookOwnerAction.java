@@ -19,52 +19,54 @@ public class BookOwnerAction {
         System.out.println("Enter book owner's name:");
         BookOwner owner = new BookOwner();
         if (scanner.hasNext()) {
-            owner.setBookOwnerName(scanner.next());
+            owner.setBookOwnerName(scanner.nextLine());
         }
 
         System.out.println("Enter book owner's 2nd name:");
         if (scanner.hasNext()) {
-            owner.setBookOwnerSecondName(scanner.next());
-        }
-
-        System.out.println("Enter book owner's reading number:");
-        if (scanner.hasNext()) {
-            owner.setBookOwnerNumber(scanner.next());
+            owner.setBookOwnerSecondName(scanner.nextLine());
         }
 
         owner = service.create(owner);
 
         System.out.println(owner);
     }
+
     public static void updateBookOwner() {
         Scanner scanner = new Scanner(System.in);
 
         BookOwner owner = new BookOwner();
-        System.out.println("Enter book owner's number:");
+        System.out.println("Enter book owner's ID:");
         if (scanner.hasNext()) {
-            owner = service.findByNumber(scanner.next());
+            owner = service.read(scanner.nextLong());
         }
         System.out.println("Enter book's new name:");
         if (scanner.hasNext()) {
-            owner.setBookOwnerName(scanner.next());
+            scanner.nextLine();
+            owner.setBookOwnerName(scanner.nextLine());
         }
         System.out.println("Enter book's new 2nd name:");
         if (scanner.hasNext()) {
-            owner.setBookOwnerSecondName(scanner.next());
+            owner.setBookOwnerSecondName(scanner.nextLine());
         }
 
         owner = service.update(owner);
 
         System.out.println(owner);
     }
+
     public static void deleteBookOwner() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         BookOwner owner = new BookOwner();
-        System.out.println("Enter book owner's reading number:");
+        System.out.println("Enter book owner's ID:");
         if (scanner.hasNext()) {
-            owner = service.findByNumber(scanner.next());
+            owner = service.read(scanner.nextLong());
         }
         service.delete(owner);
+    }
+
+    public static void listAllOwners() throws IOException, ClassNotFoundException {
+        service.listAllOwners();
     }
 }

@@ -18,17 +18,17 @@ public class BookAction {
         System.out.println("Enter book's name:");
         Book book = new Book();
         if (scanner.hasNext()) {
-            book.setName(scanner.next());
+            book.setName(scanner.nextLine());
         }
 
         System.out.println("Enter book's author:");
         if (scanner.hasNext()) {
-            book.setAuthor(scanner.next());
+            book.setAuthor(scanner.nextLine());
         }
 
         System.out.println("Enter book's description:");
         if (scanner.hasNext()) {
-            book.setDescription(scanner.next());
+            book.setDescription(scanner.nextLine());
         }
 
         book = service.create(book);
@@ -40,13 +40,14 @@ public class BookAction {
         Scanner scanner = new Scanner(System.in);
 
         Book book = new Book();
-        System.out.println("Enter book's name:");
+        System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.findByName(scanner.next());
+            book = service.read(scanner.nextLong());
         }
         System.out.println("Enter book's new name:");
         if (scanner.hasNext()) {
-            book.setName(scanner.next());
+            scanner.nextLine();
+            book.setName(scanner.nextLine());
         }
 
         book = service.update(book);
@@ -58,13 +59,14 @@ public class BookAction {
         Scanner scanner = new Scanner(System.in);
 
         Book book = new Book();
-        System.out.println("Enter book's name:");
+        System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.findByName(scanner.next());
+            book = service.read(scanner.nextLong());
         }
         System.out.println("Enter book's new author:");
         if (scanner.hasNext()) {
-            book.setAuthor(scanner.next());
+            scanner.nextLine();
+            book.setAuthor(scanner.nextLine());
         }
 
         book = service.update(book);
@@ -75,10 +77,15 @@ public class BookAction {
     public static void updateBookDescription() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter book's new description:");
         Book book = new Book();
+        System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book.setDescription(scanner.next());
+            book = service.read(scanner.nextLong());
+        }
+        System.out.println("Enter book's new description:");
+        if (scanner.hasNext()) {
+            scanner.nextLine();
+            book.setDescription(scanner.nextLine());
         }
 
         book = service.update(book);
@@ -90,9 +97,9 @@ public class BookAction {
         Scanner scanner = new Scanner(System.in);
 
         Book book = new Book();
-        System.out.println("Enter book's name:");
+        System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.findByName(scanner.next());
+            book = service.read(scanner.nextLong());
         }
         service.delete(book);
     }

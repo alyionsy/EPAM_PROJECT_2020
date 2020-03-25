@@ -11,5 +11,6 @@ public interface BookService {
     void delete(Book book) throws IOException;
     Book findByName(String name);
     Book findByAuthor(String author);
+    Book read(long id);
     void listAllBooks() throws IOException, ClassNotFoundException;
 }

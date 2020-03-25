@@ -47,6 +47,10 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Book read(long id) {
+        for (Book book : DataBase.getAllBooks()) {
+            if (book.getId().equals(id))
+                return book;
+        }
         return null;
     }
 

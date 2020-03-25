@@ -1,13 +1,12 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Book extends AbstractEntity<Long> {
 
     private String name;
     private String author;
-    private String description; // can be empty? needs discussing
+    private String description; // can be empty
 
     public void setName(String name) {
         this.name = name;
@@ -30,7 +29,7 @@ public class Book extends AbstractEntity<Long> {
     }
 
     public String getDescription() {
-        return author;
+        return description;
     }
 
     @Override
@@ -56,14 +55,14 @@ public class Book extends AbstractEntity<Long> {
     @Override
     public String toString() {
         return "Book{"
-                + "id='"
-                + getId()
+                + "id='" + getId()
                 + '\''
                 + ", name='"
                 + name
                 + '\''
-                + ", author="
+                + ", author='"
                 + author
+                + '\''
                 + ", description='"
                 + description
                 + '\''

@@ -14,7 +14,7 @@ public class Menu {
     public void ShowMainMenu() throws IOException, ClassNotFoundException {
         Scanner ui = new Scanner(System.in);
         while (true) {
-            System.out.println("------Main menu------");
+            System.out.println("\n------Main menu------");
             System.out.println("Books:\n[1] Add new book\n" + "[2] Update book's name\n"
                     + "[3] Update book's author\n" + "[4] Update book's description\n"
                     + "[5] Delete book\n" + "[6] List all books");
@@ -26,22 +26,23 @@ public class Menu {
             System.out.print("\nEnter your choice: "); c = ui.nextInt();
 
             switch(c) {
-                case 1 : BookAction.addBook(); break;
-                case 2 : BookAction.updateBookName(); break;
-                case 3 : BookAction.updateBookAuthor(); break;
-                case 4 : BookAction.updateBookDescription(); break;
-                case 5 : BookAction.deleteBook(); break;
-                case 6 : BookAction.listAllBooks(); break;
+                case 1: BookAction.addBook(); break;
+                case 2: BookAction.updateBookName(); break;
+                case 3: BookAction.updateBookAuthor(); break;
+                case 4: BookAction.updateBookDescription(); break;
+                case 5: BookAction.deleteBook(); break;
+                case 6: BookAction.listAllBooks(); break;
                 case 7: BookOwnerAction.addBookOwner(); break;
                 case 8: BookOwnerAction.updateBookOwner(); break;
                 case 9: BookOwnerAction.deleteBookOwner(); break;
-                case 11: OrderAction.updateOrder(); break;
+                case 10: BookOwnerAction.listAllOwners(); break;
+                case 11: OrderAction.addOrder(); break;
                 case 12: OrderAction.updateOrder(); break;
-                case 13: OrderAction.updateOrder(); break;
-                case 15 : System.out.println("Leaving the program now..."); DataBase.writeAll(); System.exit(0); break;
-                default : System.out.println("error.");
+                case 13: OrderAction.deleteOrder(); break;
+                case 14: OrderAction.listAllOrders(); break;
+                case 15: System.out.println("Leaving the program now..."); DataBase.writeAll(); System.exit(0); break;
+                default: System.out.println("error.");
             }
-
         }
 
     }
