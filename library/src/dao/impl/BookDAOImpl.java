@@ -3,6 +3,7 @@ package dao.impl;
 import dao.BookDAO;
 import domain.Book;
 import domain.DataBase;
+import domain.Order;
 
 import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
@@ -68,11 +69,23 @@ public class BookDAOImpl implements BookDAO {
                 book.setDescription(entity.getDescription());
             }
         }
+        for (Order order : DataBase.getAllOrders()) {
+            for (Book book : order.getTakenBooks()) {
+                if (entity.getId().equals(book.getId())) {
+                    book.setName(entity.getName());
+                    book.setAuthor(entity.getAuthor());
+                    book.setDescription(entity.getDescription());
+                }
+            }
+        }
         DataBase.writeAll();
     }
 
     @Override
     public void delete(Book entity) throws IOException {
+        for (Order order : DataBase.getAllOrders()) {
+            order.getTakenBooks().removeIf(book -> entity.getId().equals(book.getId()));
+        }
         DataBase.getAllBooks().removeIf(book -> book.getId().equals(entity.getId()));
         DataBase.writeAll();
     }
