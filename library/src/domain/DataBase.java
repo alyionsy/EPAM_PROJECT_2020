@@ -165,6 +165,6 @@ public class DataBase {
         writeBookList();
         writeReaderList();
         writeOrderList();
-        logger.info("All is written.");
+        logger.info("Everything is written.");
     }
 }
