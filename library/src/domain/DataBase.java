@@ -1,8 +1,5 @@
 package domain;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,6 @@ public class DataBase {
     }
 
     private static void readBookList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileInputStream fi = new FileInputStream(new File(BOOK_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -36,17 +32,15 @@ public class DataBase {
             oi.close();
             fi.close();
         } catch (FileNotFoundException e) {
-            logger.error("File not found");
+            System.out.println("File not found");
         } catch (IOException e) {
-            logger.error("Error initializing stream");
+            System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        logger.info("Books are read.");
     }
 
     private static void readReaderList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileInputStream fi = new FileInputStream(new File(READER_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -58,17 +52,15 @@ public class DataBase {
             oi.close();
             fi.close();
         } catch (FileNotFoundException e) {
-            logger.error("File not found");
+            System.out.println("File not found");
         } catch (IOException e) {
-            logger.error("Error initializing stream");
+            System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        logger.info("Readers are read.");
     }
 
     private static void readOrderList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileInputStream fi = new FileInputStream(new File(ORDER_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -80,13 +72,12 @@ public class DataBase {
             oi.close();
             fi.close();
         } catch (FileNotFoundException e) {
-            logger.error("File not found");
+            System.out.println("File not found");
         } catch (IOException e) {
-            logger.error("Error initializing stream");
+            System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        logger.info("Orders are read.");
     }
 
     public static List<Book> getAllBooks() {
@@ -110,7 +101,6 @@ public class DataBase {
     }
 
     private static void writeBookList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileOutputStream f = new FileOutputStream(new File(BOOK_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
@@ -123,11 +113,9 @@ public class DataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("Books are written.");
     }
 
     private static void writeReaderList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileOutputStream f = new FileOutputStream(new File(READER_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
@@ -140,11 +128,9 @@ public class DataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("Readers are written.");
     }
 
     private static void writeOrderList() {
-        Logger logger = LogManager.getLogger();
         try {
             FileOutputStream f = new FileOutputStream(new File(ORDER_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
@@ -157,14 +143,11 @@ public class DataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("Orders are written.");
     }
 
     public static void writeAll() {
-        Logger logger = LogManager.getLogger();
         writeBookList();
         writeReaderList();
         writeOrderList();
-        logger.info("All is written.");
     }
 }
