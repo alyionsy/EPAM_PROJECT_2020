@@ -3,7 +3,6 @@ package console.action;
 import domain.Book;
 import service.BookService;
 import service.impl.BookServiceImpl;
-
 import java.io.IOException;
 import java.util.Scanner;
 
