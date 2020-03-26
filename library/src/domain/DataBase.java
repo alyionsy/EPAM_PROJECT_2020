@@ -6,23 +6,23 @@ import java.util.List;
 
 public class DataBase {
 
-    public static final String FILE_NAME_BOOKS = "resources/bookData.txt";
-    public static final String FILE_NAME_BOOK_OWNERS = "resources/bookOwnerData.txt";
-    public static final String FILE_NAME_ORDERS = "resources/orderData.txt";
+    public static final String BOOK_DATA_TXT = "resources/bookData.txt";
+    public static final String READER_DATA_TXT = "resources/readerData.txt";
+    public static final String ORDER_DATA_TXT = "resources/orderData.txt";
 
     private static List<Book> allBooks = new ArrayList<>();
-    private static List<BookOwner> allOwners = new ArrayList<>();
+    private static List<Reader> allReaders = new ArrayList<>();
     private static List<Order> allOrders = new ArrayList<>();
 
-    public DataBase() throws IOException {
-        readBookArray();
-        readBookOwnerArray();
-        readOrderArray();
+    public DataBase() {
+        readBookList();
+        readReaderList();
+        readOrderList();
     }
 
-    private static void readBookArray() {
+    private static void readBookList() {
         try {
-            FileInputStream fi = new FileInputStream(new File(FILE_NAME_BOOKS));
+            FileInputStream fi = new FileInputStream(new File(BOOK_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             int bookCounter = oi.readInt();
@@ -40,14 +40,14 @@ public class DataBase {
         }
     }
 
-    private static void readBookOwnerArray() {
+    private static void readReaderList() {
         try {
-            FileInputStream fi = new FileInputStream(new File(FILE_NAME_BOOK_OWNERS));
+            FileInputStream fi = new FileInputStream(new File(READER_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             int bookCounter = oi.readInt();
             for (int i = 0; i < bookCounter; i++) {
-                allOwners.add((BookOwner) oi.readObject());
+                allReaders.add((Reader) oi.readObject());
             }
             oi.close();
             fi.close();
@@ -60,9 +60,9 @@ public class DataBase {
         }
     }
 
-    private static void readOrderArray() {
+    private static void readOrderList() {
         try {
-            FileInputStream fi = new FileInputStream(new File(FILE_NAME_ORDERS));
+            FileInputStream fi = new FileInputStream(new File(ORDER_DATA_TXT));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             int bookCounter = oi.readInt();
@@ -83,9 +83,8 @@ public class DataBase {
     public static List<Book> getAllBooks() {
         return allBooks;
     }
-
-    public static List<BookOwner> getAllOwners() {
-        return allOwners;
+    public static List<Reader> getAllReaders() {
+        return allReaders;
     }
     public static List<Order> getAllOrders() {
         return allOrders;
@@ -94,18 +93,16 @@ public class DataBase {
     public static void addBook(Book book) {
         allBooks.add(book);
     }
-
-    public static void addBookOwner(BookOwner owner) {
-        allOwners.add(owner);
+    public static void addReader(Reader reader) {
+        allReaders.add(reader);
     }
-
     public static void addOrder(Order order) {
         allOrders.add(order);
     }
 
-    private static void writeBookArray() throws IOException {
+    private static void writeBookList() {
         try {
-            FileOutputStream f = new FileOutputStream(new File(FILE_NAME_BOOKS));
+            FileOutputStream f = new FileOutputStream(new File(BOOK_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeInt(allBooks.size());
             for (Book book : allBooks) {
@@ -118,13 +115,13 @@ public class DataBase {
         }
     }
 
-    private static void writeBookOwnerArray() throws FileNotFoundException {
+    private static void writeReaderList() {
         try {
-            FileOutputStream f = new FileOutputStream(new File(FILE_NAME_BOOK_OWNERS));
+            FileOutputStream f = new FileOutputStream(new File(READER_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeInt(allOwners.size());
-            for (BookOwner owner : allOwners) {
-                o.writeObject(owner);
+            o.writeInt(allReaders.size());
+            for (Reader reader : allReaders) {
+                o.writeObject(reader);
             }
             o.close();
             f.close();
@@ -133,9 +130,9 @@ public class DataBase {
         }
     }
 
-    private static void writeOrderArray() throws FileNotFoundException {
+    private static void writeOrderList() {
         try {
-            FileOutputStream f = new FileOutputStream(new File(FILE_NAME_ORDERS));
+            FileOutputStream f = new FileOutputStream(new File(ORDER_DATA_TXT));
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeInt(allOrders.size());
             for (Order order : allOrders) {
@@ -148,9 +145,9 @@ public class DataBase {
         }
     }
 
-    public static void writeAll() throws IOException {
-        writeBookArray();
-        writeBookOwnerArray();
-        writeOrderArray();
+    public static void writeAll() {
+        writeBookList();
+        writeReaderList();
+        writeOrderList();
     }
 }

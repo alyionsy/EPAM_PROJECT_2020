@@ -6,7 +6,6 @@ import domain.Book;
 import exception.ValidationException;
 import service.BookService;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -83,6 +82,5 @@ public class BookServiceImpl implements BookService {
         for (Book book : allBooks) {
             System.out.println(book + "\n");
         }
-        System.out.println(allBooks.size() + "\n");
     }
 }

@@ -1,10 +1,10 @@
 package dao;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 import domain.AbstractEntity;
+import domain.Reader;
 
 public interface GenericDAO<T extends AbstractEntity> {
 
@@ -14,7 +14,7 @@ public interface GenericDAO<T extends AbstractEntity> {
 
     List<T> readAll() throws IOException, ClassNotFoundException;
 
-    void update(T entity) throws IOException;
+    Reader update(T entity) throws IOException;
 
     void delete(T entity) throws IOException;
 }

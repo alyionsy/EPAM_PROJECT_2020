@@ -4,16 +4,11 @@ import dao.BookDAO;
 import domain.Book;
 import domain.DataBase;
 import domain.Order;
+import domain.Reader;
 
-import javax.xml.crypto.Data;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BookDAOImpl implements BookDAO {
-
-    public static final int MAX_SIZE = 1000;
 
     @Override
     public Book findByName(String name) {
@@ -34,7 +29,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public Book create(Book entity) throws IOException {
+    public Book create(Book entity) {
         if (!DataBase.getAllBooks().isEmpty()) {
             entity.setId(DataBase.getAllBooks().get(DataBase.getAllBooks().size() - 1).getId() + 1);
         }
@@ -56,12 +51,12 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public List<Book> readAll() throws IOException, ClassNotFoundException {
+    public List<Book> readAll() {
         return DataBase.getAllBooks();
     }
 
     @Override
-    public void update(Book entity) throws IOException {
+    public Reader update(Book entity) {
         for (Book book: DataBase.getAllBooks()) {
             if (book.getId().equals(entity.getId())) {
                 book.setName(entity.getName());
@@ -79,10 +74,11 @@ public class BookDAOImpl implements BookDAO {
             }
         }
         DataBase.writeAll();
+        return null;
     }
 
     @Override
-    public void delete(Book entity) throws IOException {
+    public void delete(Book entity) {
         for (Order order : DataBase.getAllOrders()) {
             order.getTakenBooks().removeIf(book -> entity.getId().equals(book.getId()));
         }

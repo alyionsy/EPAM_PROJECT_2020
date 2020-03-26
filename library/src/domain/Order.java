@@ -4,24 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Order extends AbstractEntity<Long> implements Serializable {
-    private BookOwner owner;
+    private Reader reader;
     private List<Book> takenBooks;
 
-//    public Order(BookOwner owner, List<Book> takenBooks) {
-//        this.owner = owner;
-//        this.takenBooks = takenBooks; // can be empty
-//    }
-
-    public void setOwner(BookOwner owner) {
-        this.owner = owner;
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 
     public void setTakenBooks(List<Book> takenBooks) {
         this.takenBooks = takenBooks;
     }
 
-    public BookOwner getOwner() {
-        return owner;
+    public Reader getReader() {
+        return reader;
     }
 
     public List<Book> getTakenBooks() {
@@ -33,12 +28,12 @@ public class Order extends AbstractEntity<Long> implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Order order = (Order) o;
-        return java.util.Objects.equals(owner, order.owner) &&
+        return java.util.Objects.equals(reader, order.reader) &&
                 java.util.Objects.equals(takenBooks, order.takenBooks);
     }
 
     public int hashCode() {
-        return java.util.Objects.hash(super.hashCode(), owner, takenBooks);
+        return java.util.Objects.hash(super.hashCode(), reader, takenBooks);
     }
 
     @java.lang.Override
@@ -46,10 +41,10 @@ public class Order extends AbstractEntity<Long> implements Serializable {
         return "Order{"
                 + "id='" + getId()
                 + '\''
-                + ", owner='"
-                + owner
+                + ", reader='"
+                + reader
                 + '\''
-                + ", takenBooks="
+                + ", takenBooks='"
                 + takenBooks
                 + '\''
                 + '}';

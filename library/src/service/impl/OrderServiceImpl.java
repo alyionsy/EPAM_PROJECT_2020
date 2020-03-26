@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.DAOFactory;
 import dao.OrderDAO;
-import domain.BookOwner;
+import domain.Reader;
 import domain.Order;
 import exception.ValidationException;
 import service.OrderService;
@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ValidationException("Invalid order");
         }
 
-        BookOwner owner = order.getOwner();
+        Reader owner = order.getReader();
         if (owner == null) {
             throw new ValidationException("Owner is required");
         }
@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ValidationException("Invalid order");
         }
 
-        BookOwner owner = order.getOwner();
+        Reader owner = order.getReader();
         if (owner == null) {
             throw new ValidationException("Owner is required");
         }
@@ -63,6 +63,5 @@ public class OrderServiceImpl implements OrderService {
         for (Order order : allOrders) {
             System.out.println(order + "\n");
         }
-        System.out.println(allOrders.size() + "\n");
     }
 }

@@ -2,10 +2,10 @@ package console.action;
 
 import domain.Book;
 import domain.Order;
-import service.BookOwnerService;
+import service.ReaderService;
 import service.BookService;
 import service.OrderService;
-import service.impl.BookOwnerServiceImpl;
+import service.impl.ReaderServiceImpl;
 import service.impl.BookServiceImpl;
 import service.impl.OrderServiceImpl;
 
@@ -18,17 +18,17 @@ public class OrderAction {
 
     private static OrderService service = new OrderServiceImpl();
     private static BookService bookService = new BookServiceImpl();
-    private static BookOwnerService ownerService = new BookOwnerServiceImpl();
+    private static ReaderService readerService = new ReaderServiceImpl();
 
     public static void addOrder() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter owner's ID:");
+        System.out.println("Enter reader's ID:");
         Order order = new Order();
         if (scanner.hasNext()) {
-            order.setOwner(ownerService.read(scanner.nextLong()));
+            order.setReader(readerService.read(scanner.nextLong()));
         }
-        System.out.println(order.getOwner());
+        System.out.println(order.getReader());
         int c;
         boolean indicator = true;
         List<Book> books = new ArrayList<>();

@@ -3,8 +3,8 @@ package dao.impl;
 import dao.OrderDAO;
 import domain.DataBase;
 import domain.Order;
+import domain.Reader;
 
-import java.io.IOException;
 import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -18,6 +18,7 @@ public class OrderDAOImpl implements OrderDAO {
             entity.setId((long) 1);
         }
         DataBase.addOrder(entity);
+        DataBase.writeAll();
         return entity;
     }
 
@@ -36,17 +37,18 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void update(Order entity) throws IOException {
+    public Reader update(Order entity) {
         for (Order order: DataBase.getAllOrders()) {
             if (order.getId().equals(entity.getId())) {
                 order.setTakenBooks(entity.getTakenBooks());
             }
         }
         DataBase.writeAll();
+        return null;
     }
 
     @Override
-    public void delete(Order entity) throws IOException {
+    public void delete(Order entity) {
         DataBase.getAllOrders().removeIf(order -> order.getId().equals(entity.getId()));
         DataBase.writeAll();
     }
