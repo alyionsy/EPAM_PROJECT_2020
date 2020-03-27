@@ -19,7 +19,7 @@ My Geek Academy - библиотека для фанатов комиксов, �
 
 + [UI](./docs/USER_INTERFACE.md)
 
-+ [DEADLINES](./docs/DEADLINES.md)
++ [Deadlines](./docs/DEADLINES.md)
 
 ## Links
 
