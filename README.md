@@ -15,7 +15,7 @@ My Geek Academy - библиотека для фанатов комиксов, �
 
 + [System Purpose](./docs/SYSTEM_PURPOSE.md)
 
-+ [Behavioral Requiremenrs](.docs/BEHAVIORAL_REQUIREMENTS.md)
++ [Behavioral Requiremenrs](./docs/BEHAVIORAL_REQUIREMENTS.md)
 
 + [UI](./docs/USER_INTERFACE.md)
 
