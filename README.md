@@ -23,4 +23,6 @@ My Geek Academy - библиотека для фанатов комиксов, �
 
 [Figma](https://www.figma.com/file/lDMxHOsqgqONwn9jJUQrKv/Library-My-Geek-Academy?node-id=0%3A1)
 
+[Lucidchart](https://www.lucidchart.com/invitations/accept/2fe22125-36e6-42c5-a1da-f4b0c2198851)
+
 [GitHub wiki](https://github.com/alyionsy/MyGeekAcademy/wiki)
