@@ -29,5 +29,7 @@ My Geek Academy - библиотека для фанатов комиксов, �
 
 ## Contributors
 [Albina Bondarchik](https://github.com/alyionsy)
+
 [Maria Zhavrid](https://github.com/mishazh23)
+
 [Elizabeth Belyavskaya](https://github.com/LizzkaBel)
