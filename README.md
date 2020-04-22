@@ -26,3 +26,8 @@ My Geek Academy - библиотека для фанатов комиксов, �
 [Lucidchart](https://www.lucidchart.com/invitations/accept/2fe22125-36e6-42c5-a1da-f4b0c2198851)
 
 [GitHub wiki](https://github.com/alyionsy/MyGeekAcademy/wiki)
+
+## Contributors
+[Albina Bondarchik](https://github.com/alyionsy)
+[Maria Zhavrid](https://github.com/mishazh23)
+[Elizabeth Belyavskaya](https://github.com/LizzkaBel)
