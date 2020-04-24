@@ -1,11 +1,11 @@
-package main.java.service.impl;
+package service.impl;
 
-import main.java.dao.BookDAO;
-import main.java.dao.DAOFactory;
-import main.java.domain.Author;
-import main.java.domain.Book;
-import main.java.exception.ValidationException;
-import main.java.service.BookService;
+import dao.BookDAO;
+import dao.DAOFactory;
+import domain.Author;
+import domain.Book;
+import exception.ValidationException;
+import service.BookService;
 
 import java.io.IOException;
 import java.util.List;

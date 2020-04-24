@@ -1,5 +1,7 @@
-package main.java.dao;
+package dao;
 
-import main.java.domain.Reader;
+import domain.Reader;
 
-public interface ReaderDAO extends GenericDAO<Reader> {}
+public interface ReaderDAO extends GenericDAO<Reader> {
+
+}

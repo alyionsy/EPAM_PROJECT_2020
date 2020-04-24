@@ -1,11 +1,11 @@
-package main.java.service.impl;
+package service.impl;
 
-import main.java.dao.DAOFactory;
-import main.java.dao.OrderDAO;
-import main.java.domain.Reader;
-import main.java.domain.Order;
-import main.java.exception.ValidationException;
-import main.java.service.OrderService;
+import dao.DAOFactory;
+import dao.OrderDAO;
+import domain.Reader;
+import domain.Order;
+import exception.ValidationException;
+import service.OrderService;
 
 import java.io.IOException;
 import java.util.List;

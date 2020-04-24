@@ -1,9 +1,8 @@
-package main.java.console.action;
+package console.action;
 
-import main.java.domain.Book;
-import main.java.domain.Book;
-import main.java.service.BookService;
-import main.java.service.impl.BookServiceImpl;
+import domain.Book;
+import service.BookService;
+import service.impl.BookServiceImpl;
 import java.io.IOException;
 import java.util.Scanner;
 

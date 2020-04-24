@@ -1,8 +1,8 @@
-package main.java.service.impl;
+package service.impl;
 
-import main.java.domain.Author;
-import main.java.exception.ValidationException;
-import main.java.service.AuthorService;
+import domain.Author;
+import exception.ValidationException;
+import service.AuthorService;
 
 import java.io.IOException;
 

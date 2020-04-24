@@ -1,6 +1,6 @@
-package main.java.dao;
+package dao;
 
-import main.java.domain.Author;
+import domain.Author;
 
 public interface AuthorDAO extends GenericDAO<Author> {
 

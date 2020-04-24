@@ -1,62 +1,131 @@
-package main.java.dao.impl;
+package dao.impl;
 
-import main.java.dao.ReaderDAO;
-import main.java.domain.Reader;
-import main.java.domain.DataBase;
-import main.java.domain.Order;
+import dao.ReaderDAO;
+import dao.util.DBUtil;
+import domain.Reader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReaderDAOImpl implements ReaderDAO {
+    private Connection connection;
+    private String database;
+    private static final Logger logger = LogManager.getLogger(ReaderDAOImpl.class.getName());
 
-    @Override
-    public Reader create(Reader entity) {
-        if (!DataBase.getAllReaders().isEmpty()) {
-            entity.setId(DataBase.getAllReaders().get(DataBase.getAllReaders().size() - 1).getId() + 1);
+    public ReaderDAOImpl(DBUtil dbUtil) {
+        try {
+            this.connection = dbUtil.getConnection();
+            this.database = dbUtil.getDatabase();
         }
-        else {
-            entity.setId((long) 1);
+        catch (SQLException e){
+            logger.error(e.toString());
         }
-        DataBase.addReader(entity);
-        DataBase.writeAll();
-        return entity;
     }
 
     @Override
-    public Reader read(long id) {
-        for (Reader reader : DataBase.getAllReaders()) {
-            if (reader.getId().equals(id))
-                return reader;
+    public boolean create(Reader entity) {
+        try {
+            String query = String.format(
+                    "INSERT INTO %s.Readers (id, name, secondName)" +
+                            " VALUES ('%d', '%s', '%s')",
+                    database, entity.getId(), entity.getReaderName(), entity.getReaderSecondName()
+            );
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.toString());
+        }
+
+        return false;
+    }
+
+    @Override
+    public Reader read(int id) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = String.format("SELECT * FROM %s.Readers WHERE id=%d", database, id);
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+//                statement.close();
+                return extractReaderFromResultSet(resultSet);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return null;
     }
 
     @Override
     public List<Reader> readAll() {
-        return DataBase.getAllReaders();
+        try {
+            Statement statement = connection.createStatement();
+
+            String query = String.format("SELECT * FROM %s.Readers", database);
+            ResultSet resultSet =  statement.executeQuery(query);
+
+            ArrayList<Reader> readers = new ArrayList<>();
+
+            while(resultSet.next()) {
+                readers.add(extractReaderFromResultSet(resultSet));
+            }
+
+            statement.close();
+            return readers;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public Reader update(Reader entity) {
-        for (Reader reader: DataBase.getAllReaders()) {
-            if (reader.getId().equals(entity.getId())) {
-                reader.setReaderName(entity.getReaderName());
-                reader.setReaderSecondName(entity.getReaderSecondName());
+    public boolean update(Reader entity) {
+        try {
+            String query = String.format(
+                    "UPDATE %s.Readers SET name='%s', secondName='%s' WHERE '%d'",
+                    database, entity.getReaderName(), entity.getReaderSecondName(), entity.getId()
+            );
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
             }
         }
-        for (Order order : DataBase.getAllOrders()) {
-            if (entity.equals(order.getReader())) {
-                order.setReader(entity);
-            }
+        catch (SQLException e){
+            System.out.println(e.toString());
         }
-        DataBase.writeAll();
-        return entity;
+
+        return false;
     }
 
     @Override
-    public void delete(Reader entity) {
-        DataBase.getAllOrders().removeIf(order -> order.getReader().getId().equals(entity.getId()));
-        DataBase.getAllReaders().removeIf(reader -> reader.getId().equals(entity.getId()));
-        DataBase.writeAll();
+    public boolean delete(int id) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = String.format("DELETE FROM %s.Readers WHERE id=%d", database, id);
+            if (statement.executeUpdate(query) == 1) {
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.toString());
+        }
+        return false;
+    }
+
+    private Reader extractReaderFromResultSet(ResultSet resultSet) throws SQLException {
+        Reader reader = new Reader();
+
+        reader.setId(resultSet.getInt("id"));
+        reader.setReaderName(resultSet.getString("name"));
+        reader.setReaderSecondName(resultSet.getString("secondName"));
+
+        return reader;
     }
 }

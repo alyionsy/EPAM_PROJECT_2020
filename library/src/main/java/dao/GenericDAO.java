@@ -1,20 +1,20 @@
-package main.java.dao;
+package dao;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-import main.java.domain.AbstractEntity;
-import main.java.domain.Reader;
+import domain.AbstractEntity;
+import exception.NullValueException;
 
 public interface GenericDAO<T extends AbstractEntity> {
+    boolean create(T entity);
 
-    T create(T entity) throws IOException;
+    T read(int id);
 
-    T read(long id);
+    List<T> readAll();
 
-    List<T> readAll() throws IOException, ClassNotFoundException;
+    boolean update(T entity);
 
-    Reader update(T entity) throws IOException;
-
-    void delete(T entity) throws IOException;
+    boolean delete(int id);
 }

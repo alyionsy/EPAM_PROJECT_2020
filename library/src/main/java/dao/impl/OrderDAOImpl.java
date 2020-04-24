@@ -1,9 +1,9 @@
-package main.java.dao.impl;
+package dao.impl;
 
-import main.java.dao.OrderDAO;
-import main.java.domain.DataBase;
-import main.java.domain.Order;
-import main.java.domain.Reader;
+import dao.OrderDAO;
+import domain.DataBase;
+import domain.Order;
+import domain.Reader;
 
 import java.util.List;
 

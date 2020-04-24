@@ -1,6 +1,6 @@
-package main.java.service;
+package service;
 
-import main.java.domain.Author;
+import domain.Author;
 
 import java.io.IOException;
 

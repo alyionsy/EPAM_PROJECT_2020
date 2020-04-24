@@ -1,10 +1,10 @@
-package main.java.dao.impl;
+package dao.impl;
 
-import main.java.dao.BookDAO;
-import main.java.domain.Book;
-import main.java.domain.DataBase;
-import main.java.domain.Order;
-import main.java.domain.Reader;
+import dao.BookDAO;
+import domain.Book;
+import domain.DataBase;
+import domain.Order;
+import domain.Reader;
 
 import java.util.List;
 

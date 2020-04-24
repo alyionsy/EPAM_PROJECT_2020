@@ -1,8 +1,8 @@
-package main.java.console.action;
+package console.action;
 
-import main.java..Reader;
-import main.java.service.ReaderService;
-import main.java.service.impl.ReaderServiceImpl;
+import domain.Reader;
+import service.ReaderService;
+import service.impl.ReaderServiceImpl;
 
 import java.io.IOException;
 import java.util.Scanner;

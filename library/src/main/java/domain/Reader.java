@@ -1,10 +1,15 @@
-package main.java.domain;
+package domain;
 
 import java.io.Serializable;
 
-public class Reader extends AbstractEntity<Long> implements Serializable {
+public class Reader extends AbstractEntity<Integer> implements Serializable {
     private String readerName;
     private String readerSecondName;
+
+//    public Reader(String readerName, String readerSecondName) {
+//        this.readerName = readerName;
+//        this.readerSecondName = readerSecondName;
+//    }
 
     public void setReaderName(String readerName) {
         this.readerName = readerName;

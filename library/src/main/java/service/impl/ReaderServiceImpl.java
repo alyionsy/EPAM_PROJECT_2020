@@ -1,10 +1,10 @@
-package main.java.service.impl;
+package service.impl;
 
-import main.java.dao.ReaderDAO;
-import main.java.dao.DAOFactory;
-import main.java.domain.Reader;
-import main.java.exception.ValidationException;
-import main.java.service.ReaderService;
+import dao.ReaderDAO;
+import dao.DAOFactory;
+import domain.Reader;
+import exception.ValidationException;
+import service.ReaderService;
 
 import java.io.IOException;
 import java.util.List;

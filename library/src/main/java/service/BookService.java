@@ -1,6 +1,6 @@
-package main.java.service;
+package service;
 
-import main.java.domain.Book;
+import domain.Book;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

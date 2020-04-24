@@ -1,6 +1,6 @@
-package main.java.dao;
+package dao;
 
-import main.java.domain.Order;
+import domain.Order;
 
 public interface OrderDAO extends GenericDAO<Order> {
 }

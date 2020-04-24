@@ -1,8 +1,8 @@
-package main.java.console;
+package console;
 
-import main.java.console.action.BookAction;
-import main.java.console.action.ReaderAction;
-import main.java.console.action.OrderAction;
+import console.action.BookAction;
+import console.action.ReaderAction;
+import console.action.OrderAction;
 
 import java.io.IOException;
 import java.util.Scanner;

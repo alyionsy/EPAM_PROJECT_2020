@@ -1,6 +1,6 @@
-package main.java.service;
+package service;
 
-import main.java.domain.Reader;
+import domain.Reader;
 
 import java.io.IOException;
 

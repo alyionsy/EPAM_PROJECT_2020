@@ -1,7 +1,7 @@
-package main.java.run;
+package run;
 
-import main.java.console.Menu;
-import main.java.domain.DataBase;
+import console.Menu;
+import domain.DataBase;
 
 import java.io.IOException;
 

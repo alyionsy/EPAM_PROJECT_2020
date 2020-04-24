@@ -1,6 +1,6 @@
-package main.java.dao;
+package dao;
 
-import main.java.domain.Book;
+import domain.Book;
 
 public interface BookDAO extends GenericDAO<Book> {
     Book findByName(String name);

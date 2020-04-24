@@ -1,0 +1,8 @@
+domain\Order.class
+dao\OrderDAO.class
+domain\Book.class
+run\Start.class
+domain\Author.class
+domain\AbstractEntity.class
+dao\GenericDAO.class
+domain\Reader.class

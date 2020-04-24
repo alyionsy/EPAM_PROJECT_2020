@@ -1,13 +1,13 @@
-package main.java.console.action;
+package console.action;
 
-import main.java.domain.Book;
-import main.java.domain.Order;
-import main.java.service.ReaderService;
-import main.java.service.BookService;
-import main.java.service.OrderService;
-import main.java.service.impl.ReaderServiceImpl;
-import main.java.service.impl.BookServiceImpl;
-import main.java.service.impl.OrderServiceImpl;
+import domain.Book;
+import domain.Order;
+import service.ReaderService;
+import service.BookService;
+import service.OrderService;
+import service.impl.ReaderServiceImpl;
+import service.impl.BookServiceImpl;
+import service.impl.OrderServiceImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
