@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Objects;
 
-public class Author extends AbstractEntity<Long> {
+public class Author extends AbstractEntity<Integer> {
     private String name;
     private String secondName;
 

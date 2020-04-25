@@ -2,12 +2,14 @@ package service;
 
 import domain.Order;
 
-import java.io.IOException;
-
 public interface OrderService {
-    Order create(Order order) throws IOException;
-    Order update(Order order) throws IOException;
-    void delete(Order order) throws IOException;
-    Order read(long id);
-    void listAllOrders() throws IOException, ClassNotFoundException;
+    boolean create(Order order);
+    Order read(int id);
+    boolean update(Order order);
+    boolean delete(int id);
+
+    Order findByReaderID(int id);
+    Order findByBookID(int id);
+    void listAllOrders();
+    void showOrder(int id);
 }

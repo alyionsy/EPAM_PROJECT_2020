@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.ReaderDAO;
-import dao.util.DBUtil;
+import dao.util.DatabaseUtil;
 import domain.Reader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +15,10 @@ public class ReaderDAOImpl implements ReaderDAO {
     private String database;
     private static final Logger logger = LogManager.getLogger(ReaderDAOImpl.class.getName());
 
-    public ReaderDAOImpl(DBUtil dbUtil) {
+    public ReaderDAOImpl(DatabaseUtil databaseUtil) {
         try {
-            this.connection = dbUtil.getConnection();
-            this.database = dbUtil.getDatabase();
+            this.connection = databaseUtil.getConnection();
+            this.database = databaseUtil.getDatabase();
         }
         catch (SQLException e){
             logger.error(e.toString());
@@ -53,9 +53,10 @@ public class ReaderDAOImpl implements ReaderDAO {
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-//                statement.close();
+                statement.close();
                 return extractReaderFromResultSet(resultSet);
             }
+
             statement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();

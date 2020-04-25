@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBUtil {
+public class DatabaseUtil {
     private String database;
 
-    public DBUtil(String database){
+    public DatabaseUtil(String database){
         this.database = database;
     }
 

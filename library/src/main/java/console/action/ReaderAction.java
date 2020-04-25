@@ -4,67 +4,81 @@ import domain.Reader;
 import service.ReaderService;
 import service.impl.ReaderServiceImpl;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class ReaderAction {
+    private static final ReaderService service = new ReaderServiceImpl();
 
-    private static ReaderService service = new ReaderServiceImpl();
-
-    public static void addReader() throws IOException {
+    public static void addReader() {
         Scanner scanner = new Scanner(System.in);
+        Reader reader = new Reader();
 
         System.out.println("Enter reader's name:");
-        Reader reader = new Reader();
         if (scanner.hasNext()) {
             reader.setReaderName(scanner.nextLine());
         }
 
-        System.out.println("Enter book reader's 2nd name:");
+        System.out.println("Enter reader's 2nd name:");
         if (scanner.hasNext()) {
             reader.setReaderSecondName(scanner.nextLine());
         }
 
-        reader = service.create(reader);
-
-        System.out.println(reader);
+        if (service.create(reader)) {
+            System.out.println(reader);
+        }
+        else {
+            System.out.println("Failed to create reader.");
+        }
     }
 
-    public static void updateReader() throws IOException {
+    public static void updateReader() {
         Scanner scanner = new Scanner(System.in);
-
         Reader reader = new Reader();
-        System.out.println("Enter book reader's ID:");
+
+        System.out.println("Enter reader's ID:");
         if (scanner.hasNext()) {
-            reader = service.read(scanner.nextLong());
+            reader = service.read(scanner.nextInt());
         }
-        System.out.println("Enter book's new name:");
+        System.out.println("Enter reader's new name:");
         if (scanner.hasNext()) {
             scanner.nextLine();
             reader.setReaderName(scanner.nextLine());
         }
-        System.out.println("Enter book's new 2nd name:");
+        System.out.println("Enter reader's new 2nd name:");
         if (scanner.hasNext()) {
             reader.setReaderSecondName(scanner.nextLine());
         }
 
-        reader = service.update(reader);
-
-        System.out.println(reader);
+        if (service.update(reader)) {
+            System.out.println(reader);
+        }
+        else {
+            System.out.println("Failed to update reader.");
+        }
     }
 
-    public static void deleteReader() throws IOException {
+    public static void deleteReader() {
         Scanner scanner = new Scanner(System.in);
 
-        Reader reader = new Reader();
-        System.out.println("Enter book owner's ID:");
+        int id = 0;
+        System.out.println("Enter reader's ID:");
         if (scanner.hasNext()) {
-            reader = service.read(scanner.nextLong());
+            id = scanner.nextInt();
         }
-        service.delete(reader);
+
+        if (service.delete(id)) {
+            System.out.println("Deleted successful.");
+        }
+        else {
+            System.out.println("Failed to delete reader.");
+        }
     }
 
-    public static void listAllReaders() throws IOException, ClassNotFoundException {
+    public static void listAllReaders() {
         service.listAllReaders();
+    }
+
+    public static void showReader(int id) {
+        service.showReader(id);
     }
 }

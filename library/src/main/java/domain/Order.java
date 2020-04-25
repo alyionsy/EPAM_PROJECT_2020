@@ -1,52 +1,48 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Objects;
 
-public class Order extends AbstractEntity<Long> implements Serializable {
-    private Reader reader;
-    private Book book;
+public class Order extends AbstractEntity<Integer> implements Serializable {
+    private int readerID;
+    private int bookID;
 
-    public void setReader(Reader reader) {
-        this.reader = reader;
+    public int getReaderID() {
+        return readerID;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setReaderID(int readerID) {
+        this.readerID = readerID;
     }
 
-    public Reader getReader() {
-        return reader;
+    public int getBookID() {
+        return bookID;
     }
 
-    public Book getBook() {
-        return book;
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Order order = (Order) o;
-        return java.util.Objects.equals(reader, order.reader) &&
-                java.util.Objects.equals(book, order.book);
+        return readerID == order.readerID &&
+                bookID == order.bookID;
     }
 
+    @Override
     public int hashCode() {
-        return java.util.Objects.hash(super.hashCode(), reader, book);
+        return Objects.hash(super.hashCode(), readerID, bookID);
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Order{"
-                + "id='" + getId()
-                + '\''
-                + ", reader='"
-                + reader
-                + '\''
-                + ", book='"
-                + book
-                + '\''
-                + '}';
+    @Override
+    public String toString() {
+        return "Order{" +
+                "readerID=" + readerID +
+                ", bookID=" + bookID +
+                '}';
     }
 }

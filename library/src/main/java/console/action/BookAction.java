@@ -3,106 +3,135 @@ package console.action;
 import domain.Book;
 import service.BookService;
 import service.impl.BookServiceImpl;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class BookAction {
+    private static final BookService service = new BookServiceImpl();
 
-    private static BookService service = new BookServiceImpl();
-
-    public static void addBook() throws IOException {
+    public static void addBook() {
         Scanner scanner = new Scanner(System.in);
+        Book book = new Book();
 
         System.out.println("Enter book's name:");
-        Book book = new Book();
         if (scanner.hasNext()) {
             book.setName(scanner.nextLine());
         }
 
-        System.out.println("Enter book's author:");
+        System.out.println("Enter book's author ID:");
         if (scanner.hasNext()) {
-            book.setAuthor(scanner.nextLine());
+            book.setAuthorID(scanner.nextInt());
+        }
+
+        System.out.println("Enter book's year:");
+        if (scanner.hasNext()) {
+            book.setYear(scanner.nextInt());
         }
 
         System.out.println("Enter book's description:");
         if (scanner.hasNext()) {
+            scanner.nextLine();
             book.setDescription(scanner.nextLine());
         }
 
-        book = service.create(book);
-
-        System.out.println(book);
+        if (service.create(book)) {
+            System.out.println(book);
+        }
+        else {
+            System.out.println("Failed to create book.");
+        }
     }
 
-    public static void updateBookName() throws IOException {
+    public static void updateBookName() {
         Scanner scanner = new Scanner(System.in);
-
         Book book = new Book();
+
         System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.read(scanner.nextLong());
+            book = service.read(scanner.nextInt());
         }
+
         System.out.println("Enter book's new name:");
         if (scanner.hasNext()) {
             scanner.nextLine();
             book.setName(scanner.nextLine());
         }
 
-        book = service.update(book);
-
-        System.out.println(book);
+        if (service.update(book)) {
+            System.out.println(book);
+        }
+        else {
+            System.out.println("Failed to update book.");
+        }
     }
 
-    public static void updateBookAuthor() throws IOException {
+    public static void updateBookAuthor() {
         Scanner scanner = new Scanner(System.in);
-
         Book book = new Book();
+
         System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.read(scanner.nextLong());
+            book = service.read(scanner.nextInt());
         }
+
         System.out.println("Enter book's new author:");
         if (scanner.hasNext()) {
             scanner.nextLine();
-            book.setAuthor(scanner.nextLine());
+            book.setAuthorID(scanner.nextInt());
         }
 
-        book = service.update(book);
-
-        System.out.println(book);
+        if (service.update(book)) {
+            System.out.println(book);
+        }
+        else {
+            System.out.println("Failed to update book.");
+        }
     }
 
-    public static void updateBookDescription() throws IOException {
+    public static void updateBookDescription() {
         Scanner scanner = new Scanner(System.in);
-
         Book book = new Book();
+
         System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.read(scanner.nextLong());
+            book = service.read(scanner.nextInt());
         }
+
         System.out.println("Enter book's new description:");
         if (scanner.hasNext()) {
             scanner.nextLine();
             book.setDescription(scanner.nextLine());
         }
 
-        book = service.update(book);
-
-        System.out.println(book);
+        if (service.update(book)) {
+            System.out.println(book);
+        }
+        else {
+            System.out.println("Failed to update book.");
+        }
     }
 
-    public static void deleteBook() throws IOException {
+    public static void deleteBook() {
         Scanner scanner = new Scanner(System.in);
 
-        Book book = new Book();
+        int id = 0;
         System.out.println("Enter book's ID:");
         if (scanner.hasNext()) {
-            book = service.read(scanner.nextLong());
+            id = scanner.nextInt();
         }
-        service.delete(book);
+
+        if (service.delete(id)) {
+            System.out.println("Deleted successful.");
+        }
+        else {
+            System.out.println("Failed to delete book.");
+        }
     }
 
-    public static void listAllBooks() throws IOException, ClassNotFoundException {
+    public static void listAllBooks() {
         service.listAllBooks();
+    }
+
+    public static void showBook(int id) {
+        service.showBook(id);
     }
 }

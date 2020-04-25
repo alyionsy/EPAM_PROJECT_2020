@@ -1,100 +1,94 @@
 package console.action;
 
-import domain.Book;
 import domain.Order;
-import service.ReaderService;
-import service.BookService;
 import service.OrderService;
-import service.impl.ReaderServiceImpl;
-import service.impl.BookServiceImpl;
 import service.impl.OrderServiceImpl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class OrderAction {
+    private static final OrderService service = new OrderServiceImpl();
 
-    private static OrderService service = new OrderServiceImpl();
-    private static BookService bookService = new BookServiceImpl();
-    private static ReaderService readerService = new ReaderServiceImpl();
-
-    public static void addOrder() throws IOException {
+    public static void addOrder() {
         Scanner scanner = new Scanner(System.in);
+        Order order = new Order();
 
         System.out.println("Enter reader's ID:");
-        Order order = new Order();
         if (scanner.hasNext()) {
-            order.setReader(readerService.read(scanner.nextLong()));
+            order.setReaderID(scanner.nextInt());
         }
-        System.out.println(order.getReader());
-        int c;
-        boolean indicator = true;
-        List<Book> books = new ArrayList<>();
-        while (indicator) {
-            System.out.println("[1] Add book" + "\n[2] Cancel");
-            c = scanner.nextInt();
-            switch (c) {
-                case 1: System.out.println("Enter book's ID:");
-                    books.add(bookService.read(scanner.nextLong()));
-                    break;
-                case 2: indicator = false;
-                    break;
-                default: System.out.println("error.");
-            }
-        }
-        order.setBook(books);
-        order = service.create(order);
 
-        System.out.println(order);
+        System.out.println("Enter book's ID:");
+        if (scanner.hasNext()) {
+            order.setBookID(scanner.nextInt());
+        }
+
+        if (service.create(order)) {
+            System.out.println(order);
+        }
+        else {
+            System.out.println("Failed to create order.");
+        }
     }
-    public static void updateOrder() throws IOException {
-        Scanner scanner = new Scanner(System.in);
 
+    public static void updateOrder() {
+        Scanner scanner = new Scanner(System.in);
         Order order = new Order();
+
         System.out.println("Enter order's ID:");
         if (scanner.hasNext()) {
-            order = service.read(scanner.nextLong());
+            order = service.read(scanner.nextInt());
         }
         System.out.println(order);
 
         int c;
-        boolean indicator = true;
-        while (indicator) {
-            System.out.println("[1] Add book" + "\n[2] Delete book"
-                    + "\n[3] Cancel");
-            c = scanner.nextInt();
-            switch (c) {
-                case 1: System.out.println("Enter book's ID:");
-                    order.getBook().add(bookService.read(scanner.nextLong()));
-                    break;
-                case 2:  System.out.println("Enter book's ID:");
-                    order.getBook().remove(bookService.read(scanner.nextLong()));
-                    break;
-                case 3: indicator = false;
-                    break;
-                default: System.out.println("error.");
-            }
+        System.out.println("[1] Update reader's ID" + "\n[2] Update book's ID");
+        c = scanner.nextInt();
+        switch (c) {
+            case 1:
+                System.out.println("Enter new reader's ID:");
+                order.setReaderID(scanner.nextInt());
+                break;
+            case 2:
+                System.out.println("Enter new book's ID:");
+                order.setBookID((scanner.nextInt()));
+                break;
+            default:
+                System.out.println("Nothing is chosen.");
+                break;
         }
 
-        order = service.update(order);
-
-        System.out.println(order);
+        if (service.update(order)) {
+            System.out.println(order);
+        }
+        else {
+            System.out.println("Failed to update order.");
+        }
     }
 
-    public static void deleteOrder() throws IOException {
+    public static void deleteOrder() {
         Scanner scanner = new Scanner(System.in);
-
         Order order = new Order();
+
+        int id = 0;
         System.out.println("Enter order's ID:");
         if (scanner.hasNext()) {
-            order = service.read(scanner.nextLong());
+            id = scanner.nextInt();
         }
-        service.delete(order);
+
+        if (service.delete(id)) {
+            System.out.println("Deleted successful.");
+        }
+        else {
+            System.out.println("Failed to delete order.");
+        }
     }
 
-    public static void listAllOrders() throws IOException, ClassNotFoundException {
+    public static void listAllOrders() {
         service.listAllOrders();
+    }
+
+    public static void showOrder(int id) {
+        service.showOrder(id);
     }
 }

@@ -2,12 +2,12 @@ package service;
 
 import domain.Reader;
 
-import java.io.IOException;
-
 public interface ReaderService {
-    Reader create(Reader owner) throws IOException;
-    Reader update(Reader owner) throws IOException;
-    void delete(Reader owner) throws IOException;
-    Reader read(long id);
-    void listAllReaders() throws IOException, ClassNotFoundException;
+    boolean create(Reader owner);
+    Reader read(int id);
+    boolean update(Reader owner);
+    boolean delete(int id);
+
+    void listAllReaders();
+    void showReader(int id);
 }

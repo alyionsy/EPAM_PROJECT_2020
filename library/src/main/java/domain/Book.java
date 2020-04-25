@@ -2,11 +2,11 @@ package domain;
 
 import java.util.Objects;
 
-public class Book extends AbstractEntity<Long> {
+public class Book extends AbstractEntity<Integer> {
     private String name;
-    private Author author;
-    private String description; // can be empty
+    private int authorID;
     private int year;
+    private String description; // can be empty
 
     public String getName() {
         return name;
@@ -16,20 +16,12 @@ public class Book extends AbstractEntity<Long> {
         this.name = name;
     }
 
-    public Author getAuthor() {
-        return author;
+    public int getAuthorID() {
+        return authorID;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAuthorID(int id) {
+        this.authorID = id;
     }
 
     public int getYear() {
@@ -40,29 +32,38 @@ public class Book extends AbstractEntity<Long> {
         this.year = year;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Book book = (Book) o;
-        return Objects.equals(name, book.name) &&
-                Objects.equals(author, book.author) &&
+        return authorID == book.authorID &&
+                year == book.year &&
+                Objects.equals(name, book.name) &&
                 Objects.equals(description, book.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, author, description);
+        return Objects.hash(super.hashCode(), name, authorID, year, description);
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "name='" + name + '\'' +
-                ", author=" + author +
-                ", description='" + description + '\'' +
+                ", authorID=" + authorID +
                 ", year=" + year +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

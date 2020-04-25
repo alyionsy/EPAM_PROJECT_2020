@@ -2,13 +2,12 @@ package service;
 
 import domain.Author;
 
-import java.io.IOException;
-
 public interface AuthorService {
-    Author create(Author author) throws IOException;
-    Author update(Author author) throws IOException;
-    void delete(Author author) throws IOException;
-    Author findByName(String name);
-    Author read(long id);
-    void listAllBooks() throws IOException, ClassNotFoundException;
+    boolean create(Author author);
+    Author read(int id);
+    boolean update(Author author);
+    boolean delete(int id);
+
+    void listAllAuthors();
+    void showAuthor(int id);
 }
