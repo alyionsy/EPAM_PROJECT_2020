@@ -40,7 +40,7 @@ public class Author extends AbstractEntity<Integer> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Author{" + "name='").append(name).append('\'');
+        sb.append("Author{id=").append(getId()).append(", name='").append(name).append('\'');
         if (secondName != null) {
             sb.append(", secondName='").append(secondName).append('\'');
         }

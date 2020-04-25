@@ -3,7 +3,6 @@ package service.impl;
 import dao.AuthorDAO;
 import dao.DAOFactory;
 import domain.Author;
-import domain.Order;
 import exception.ValidationException;
 import service.AuthorService;
 
@@ -21,7 +20,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author read(int id) {
-        return dao.read(id);
+        return dao.read(id).orElse(null);
     }
 
     @Override
@@ -45,7 +44,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void showAuthor(int id) {
-        System.out.println(dao.readAll().get(id));
+        if (dao.read(id).isEmpty()) {
+            System.out.println("No such elements");
+        } else {
+            System.out.println(dao.read(id).get());
+        }
     }
 
     private void checkAuthor(Author author) {

@@ -2,7 +2,9 @@ package dao;
 
 import domain.Order;
 
+import java.util.List;
+
 public interface OrderDAO extends GenericDAO<Order> {
-    Order findByReaderID(int id);
-    Order findByBookID(int id);
+    List<Order> findByReaderID(int id);
+    List<Order> findByBookID(int id);
 }

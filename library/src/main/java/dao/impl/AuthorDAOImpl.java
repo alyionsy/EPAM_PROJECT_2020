@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AuthorDAOImpl implements AuthorDAO {
     private Connection connection;
@@ -29,9 +30,9 @@ public class AuthorDAOImpl implements AuthorDAO {
     public boolean create(Author entity) {
         try {
             String query = String.format(
-                    "INSERT INTO %s.Authors (id, name, secondName)" +
-                            " VALUES ('%d', '%s', '%s')",
-                    database, entity.getId(), entity.getName(), entity.getSecondName()
+                    "INSERT INTO %s.Authors (name, secondName)" +
+                            " VALUES ('%s', '%s')",
+                    database, entity.getName(), entity.getSecondName()
             );
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             if (preparedStatement.executeUpdate() == 1) {
@@ -46,22 +47,20 @@ public class AuthorDAOImpl implements AuthorDAO {
     }
 
     @Override
-    public Author read(int id) {
+    public Optional<Author> read(int id) {
         try {
             Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Authors WHERE id=%d", database, id);
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                statement.close();
-                return extractReaderFromResultSet(resultSet);
+                return Optional.of(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -77,7 +76,6 @@ public class AuthorDAOImpl implements AuthorDAO {
             while(resultSet.next()) {
                 authors.add(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
             return authors;
         } catch (SQLException ex) {
@@ -90,7 +88,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     public boolean update(Author entity) {
         try {
             String query = String.format(
-                    "UPDATE %s.Authors SET name='%s', secondName='%s' WHERE '%d'",
+                    "UPDATE %s.Authors SET name='%s', secondName='%s' WHERE id=%d",
                     database, entity.getName(), entity.getSecondName(), entity.getId()
             );
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -111,6 +109,7 @@ public class AuthorDAOImpl implements AuthorDAO {
             Statement statement = connection.createStatement();
             String query = String.format("DELETE FROM %s.Authors WHERE id=%d", database, id);
             if (statement.executeUpdate(query) == 1) {
+                statement.close();
                 return true;
             }
         }

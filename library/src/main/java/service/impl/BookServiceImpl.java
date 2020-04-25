@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book read(int id) {
-        return dao.read(id);
+        return dao.read(id).orElse(null);
     }
 
     @Override
@@ -39,17 +39,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findByYear(int year) {
+    public List<Book> findByYear(int year) {
         return dao.findByYear(year);
     }
 
     @Override
-    public Book findByName(String name) {
+    public List<Book> findByName(String name) {
         return dao.findByName(name);
     }
 
     @Override
-    public Book findByAuthorID(int id) {
+    public List<Book> findByAuthorID(int id) {
         return dao.findByAuthorID(id);
     }
 
@@ -64,7 +64,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void showBook(int id) {
-        System.out.println(dao.readAll().get(id));
+        if (dao.read(id).isEmpty()) {
+            System.out.println("No such elements");
+        } else {
+            System.out.println(dao.read(id).get());
+        }
     }
 
     private void checkBook(Book book) {

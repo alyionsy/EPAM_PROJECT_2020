@@ -41,7 +41,8 @@ public class Order extends AbstractEntity<Integer> implements Serializable {
     @Override
     public String toString() {
         return "Order{" +
-                "readerID=" + readerID +
+                "id=" + getId() +
+                ", readerID=" + readerID +
                 ", bookID=" + bookID +
                 '}';
     }

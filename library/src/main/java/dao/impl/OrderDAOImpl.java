@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderDAOImpl implements OrderDAO {
     private Connection connection;
@@ -26,18 +27,18 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order findByReaderID(int id) {
+    public List<Order> findByReaderID(int id) {
         try {
             Statement statement = connection.createStatement();
-            String query = String.format("SELECT * FROM %s.Orders WHERE readerID=%d", database, id);
+            String query = String.format("SELECT * FROM %s.Orders WHERE readID=%d", database, id);
             ResultSet resultSet = statement.executeQuery(query);
 
+            List<Order> searchResult = new ArrayList<>();
             if (resultSet.next()) {
-                statement.close();
-                return extractReaderFromResultSet(resultSet);
+                searchResult.add(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
+            return searchResult;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -45,18 +46,18 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order findByBookID(int id) {
+    public List<Order> findByBookID(int id) {
         try {
             Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Orders WHERE bookID=%d", database, id);
             ResultSet resultSet = statement.executeQuery(query);
 
+            List<Order> searchResult = new ArrayList<>();
             if (resultSet.next()) {
-                statement.close();
-                return extractReaderFromResultSet(resultSet);
+                searchResult.add(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
+            return searchResult;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -67,9 +68,9 @@ public class OrderDAOImpl implements OrderDAO {
     public boolean create(Order entity) {
         try {
             String query = String.format(
-                    "INSERT INTO %s.Orders (id, readerID, bookID)" +
-                            " VALUES ('%d', '%d', '%d')",
-                    database, entity.getId(), entity.getReaderID(), entity.getBookID()
+                    "INSERT INTO %s.Orders (readID, bookID)" +
+                            " VALUES (%d, %d)",
+                    database, entity.getReaderID(), entity.getBookID()
             );
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             if (preparedStatement.executeUpdate() == 1) {
@@ -84,22 +85,20 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order read(int id) {
+    public Optional<Order> read(int id) {
         try {
             Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Orders WHERE id=%d", database, id);
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                statement.close();
-                return extractReaderFromResultSet(resultSet);
+                return Optional.of(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -107,7 +106,7 @@ public class OrderDAOImpl implements OrderDAO {
         try {
             Statement statement = connection.createStatement();
 
-            String query = String.format("SELECT * FROM %s.Order", database);
+            String query = String.format("SELECT * FROM %s.Orders", database);
             ResultSet resultSet =  statement.executeQuery(query);
 
             ArrayList<Order> orders = new ArrayList<>();
@@ -115,7 +114,6 @@ public class OrderDAOImpl implements OrderDAO {
             while(resultSet.next()) {
                 orders.add(extractReaderFromResultSet(resultSet));
             }
-
             statement.close();
             return orders;
         } catch (SQLException ex) {
@@ -128,7 +126,7 @@ public class OrderDAOImpl implements OrderDAO {
     public boolean update(Order entity) {
         try {
             String query = String.format(
-                    "UPDATE %s.Orders SET readerID='%d', bookID='%d' WHERE '%d'",
+                    "UPDATE %s.Orders SET readID='%d', bookID='%d' WHERE id=%d",
                     database, entity.getReaderID(), entity.getBookID(), entity.getId()
             );
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -149,6 +147,7 @@ public class OrderDAOImpl implements OrderDAO {
             Statement statement = connection.createStatement();
             String query = String.format("DELETE FROM %s.Orders WHERE id=%d", database, id);
             if (statement.executeUpdate(query) == 1) {
+                statement.close();
                 return true;
             }
         }
@@ -162,7 +161,7 @@ public class OrderDAOImpl implements OrderDAO {
         Order order = new Order();
 
         order.setId(resultSet.getInt("id"));
-        order.setReaderID(resultSet.getInt("readerID"));
+        order.setReaderID(resultSet.getInt("readID"));
         order.setBookID(resultSet.getInt("bookID"));
 
         return order;

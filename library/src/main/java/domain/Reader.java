@@ -43,14 +43,9 @@ public class Reader extends AbstractEntity<Integer> implements Serializable {
     @java.lang.Override
     public java.lang.String toString() {
         return "Reader{"
-                + "id='" + getId()
-                + '\''
-                + ", readerName='"
-                + readerName
-                + '\''
-                + ", readerSecondName='"
-                + readerSecondName
-                + '\''
-                + '}';
+                + "id=" + getId() +
+                ", readerName='" + readerName + '\'' +
+                ", readerSecondName='" + readerSecondName + '\'' +
+                '}';
     }
 }

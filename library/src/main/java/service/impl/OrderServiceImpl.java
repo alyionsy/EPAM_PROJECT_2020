@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order read(int id) {
-        return dao.read(id);
+        return dao.read(id).orElse(null);
     }
 
     @Override
@@ -35,12 +35,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findByReaderID(int id) {
+    public List<Order> findByReaderID(int id) {
         return dao.findByReaderID(id);
     }
 
     @Override
-    public Order findByBookID(int id) {
+    public List<Order> findByBookID(int id) {
         return dao.findByBookID(id);
     }
 
@@ -54,7 +54,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void showOrder(int id) {
-        System.out.println(dao.readAll().get(id));
+        if (dao.read(id).isEmpty()) {
+            System.out.println("No such elements");
+        } else {
+            System.out.println(dao.read(id).get());
+        }
     }
 
     private void checkOrder(Order order) {

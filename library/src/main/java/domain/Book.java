@@ -60,7 +60,8 @@ public class Book extends AbstractEntity<Integer> {
     @Override
     public String toString() {
         return "Book{" +
-                "name='" + name + '\'' +
+                "id=" + getId() +
+                ", name='" + name + '\'' +
                 ", authorID=" + authorID +
                 ", year=" + year +
                 ", description='" + description + '\'' +

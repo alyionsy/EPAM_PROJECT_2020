@@ -20,7 +20,7 @@ public class ReaderServiceImpl implements ReaderService {
 
     @Override
     public Reader read(int id) {
-        return dao.read(id);
+        return dao.read(id).orElse(null);
     }
 
     @Override
@@ -44,7 +44,11 @@ public class ReaderServiceImpl implements ReaderService {
 
     @Override
     public void showReader(int id) {
-        System.out.println(dao.readAll().get(id));
+        if (dao.read(id).isEmpty()) {
+            System.out.println("No such elements");
+        } else {
+            System.out.println(dao.read(id).get());
+        }
     }
 
     private void checkReader(Reader reader) {
