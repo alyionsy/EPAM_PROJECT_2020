@@ -2,9 +2,4 @@
 .gitignore
 .idea/
 logs/
-target/generated-sources/
-target/generated-test-sources/
 *.iml
-/target/
-target/classes/
-target/test-classes/
