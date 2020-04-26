@@ -22,6 +22,7 @@ public class AuthorDAOImpl implements AuthorDAO {
         }
         catch (SQLException e){
             logger.error(e.toString());
+            DatabaseUtil.connectionFailed();
         }
     }
 

@@ -98,4 +98,5 @@ public class AuthorAction {
     public static void showAuthor(int id) {
         service.showAuthor(id);
     }
+
 }

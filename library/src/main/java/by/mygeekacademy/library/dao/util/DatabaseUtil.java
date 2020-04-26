@@ -27,4 +27,9 @@ public class DatabaseUtil {
         String connectionUrl = url + database + user + password;
         return DriverManager.getConnection(connectionUrl);
     }
+
+    public static void connectionFailed() {
+        System.out.println("You can't you the program without correct Database connection.");
+        System.exit(0);
+    }
 }

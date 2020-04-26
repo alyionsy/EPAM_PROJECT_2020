@@ -24,6 +24,7 @@ public class BookDAOImpl implements BookDAO {
         }
         catch (SQLException e){
             logger.error(e.toString());
+            DatabaseUtil.connectionFailed();
         }
     }
 

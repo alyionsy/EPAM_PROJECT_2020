@@ -24,6 +24,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
         catch (SQLException e){
             logger.error(e.toString());
+            DatabaseUtil.connectionFailed();
         }
     }
 

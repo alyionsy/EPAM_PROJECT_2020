@@ -22,6 +22,7 @@ public class ReaderDAOImpl implements ReaderDAO {
         }
         catch (SQLException e){
             logger.error(e.toString());
+            DatabaseUtil.connectionFailed();
         }
     }
 
