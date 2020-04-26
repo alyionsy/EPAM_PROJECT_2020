@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: by.mygeekacademy.library.dao.TestAuthorDAO
+-------------------------------------------------------------------------------
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.658 s - in by.mygeekacademy.library.dao.TestAuthorDAO
