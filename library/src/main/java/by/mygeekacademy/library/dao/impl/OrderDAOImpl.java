@@ -31,15 +31,14 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<Order> findByReaderID(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Orders WHERE readID=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Order> searchResult = new ArrayList<>();
             while (resultSet.next()) {
                 searchResult.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been found");
             return searchResult;
         } catch (SQLException e) {
@@ -53,15 +52,14 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<Order> findByBookID(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Orders WHERE bookID=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Order> searchResult = new ArrayList<>();
             while (resultSet.next()) {
                 searchResult.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been found");
             return searchResult;
         } catch (SQLException e) {
@@ -96,14 +94,13 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Optional<Order> read(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Orders WHERE id=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return Optional.of(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Object has been read");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,17 +113,15 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public LinkedList<Order> readAll() {
         try {
-            Statement statement = connection.createStatement();
-
             String query = String.format("SELECT * FROM %s.Orders", database);
-            ResultSet resultSet =  statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             LinkedList<Order> orders = new LinkedList<>();
 
             while(resultSet.next()) {
                 orders.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been read");
             return orders;
         } catch (SQLException e) {
@@ -161,10 +156,9 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public boolean delete(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("DELETE FROM %s.Orders WHERE id=%d", database, id);
-            if (statement.executeUpdate(query) == 1) {
-                statement.close();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (preparedStatement.executeUpdate() == 1) {
                 logger.debug("Object has been deleted");
                 return true;
             }

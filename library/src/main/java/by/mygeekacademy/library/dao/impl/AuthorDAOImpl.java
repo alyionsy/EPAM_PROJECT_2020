@@ -51,15 +51,14 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public Optional<Author> read(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Authors WHERE id=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 logger.debug("Object has been read successful");
                 return Optional.of(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
         } catch (SQLException e) {
             System.out.println(e.toString());
             logger.error(e.toString());
@@ -71,17 +70,16 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public LinkedList<Author> readAll() {
         try {
-            Statement statement = connection.createStatement();
-
             String query = String.format("SELECT * FROM %s.Authors", database);
-            ResultSet resultSet =  statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             LinkedList<Author> authors = new LinkedList<>();
 
             while(resultSet.next()) {
                 authors.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
+            System.out.println(authors);
             logger.debug("Objects have been read successful");
             return authors;
         } catch (SQLException e) {
@@ -116,10 +114,9 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public boolean delete(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("DELETE FROM %s.Authors WHERE id=%d", database, id);
-            if (statement.executeUpdate(query) == 1) {
-                statement.close();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (preparedStatement.executeUpdate() == 1) {
                 logger.debug("Objects has been deleted successful");
                 return true;
             }

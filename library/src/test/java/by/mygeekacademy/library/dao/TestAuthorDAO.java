@@ -1,7 +1,7 @@
 package by.mygeekacademy.library.dao;
 
 import by.mygeekacademy.library.dao.impl.AuthorDAOImpl;
-import by.mygeekacademy.library.dao.util.DatabaseNames;
+import by.mygeekacademy.library.dao.util.DatabaseName;
 import by.mygeekacademy.library.dao.util.DatabaseUtil;
 import by.mygeekacademy.library.domain.Author;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class TestAuthorDAO {
-    private static final DatabaseUtil databaseConnection = new DatabaseUtil(DatabaseNames.TEST_DATABASE);
+    private static final DatabaseUtil databaseConnection = new DatabaseUtil(DatabaseName.TEST_DATABASE);
     private static final AuthorDAO dao = new AuthorDAOImpl(databaseConnection);
 
     @Test

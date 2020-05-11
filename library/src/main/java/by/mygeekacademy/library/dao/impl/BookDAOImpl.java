@@ -31,15 +31,14 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> findByYear(int year) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Books WHERE year=%d", database, year);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Book> searchResult = new ArrayList<>();
             while(resultSet.next()) {
                 searchResult.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been found");
             return searchResult;
         } catch (SQLException e) {
@@ -53,15 +52,14 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> findByName(String name) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Books WHERE name='%s'", database, name);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Book> searchResult = new ArrayList<>();
             while(resultSet.next()) {
                 searchResult.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been found");
             return searchResult;
         } catch (SQLException e) {
@@ -75,15 +73,14 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> findByAuthorID(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Books WHERE authorID=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Book> searchResult = new ArrayList<>();
             while(resultSet.next()) {
                 searchResult.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been found");
             return searchResult;
         } catch (SQLException e) {
@@ -119,14 +116,12 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public Optional<Book> read(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("SELECT * FROM %s.Books WHERE id=%d", database, id);
-            ResultSet resultSet = statement.executeQuery(query);
-
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return Optional.of(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Object has been read");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,17 +134,14 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public LinkedList<Book> readAll() {
         try {
-            Statement statement = connection.createStatement();
-
             String query = String.format("SELECT * FROM %s.Books", database);
-            ResultSet resultSet =  statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             LinkedList<Book> books = new LinkedList<>();
-
             while(resultSet.next()) {
                 books.add(extractReaderFromResultSet(resultSet));
             }
-            statement.close();
             logger.debug("Objects have been read");
             return books;
         } catch (SQLException e) {
@@ -184,10 +176,9 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public boolean delete(int id) {
         try {
-            Statement statement = connection.createStatement();
             String query = String.format("DELETE FROM %s.Books WHERE id=%d", database, id);
-            if (statement.executeUpdate(query) == 1) {
-                statement.close();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (preparedStatement.executeUpdate() == 1) {
                 logger.debug("Object has been deleted");
                 return true;
             }

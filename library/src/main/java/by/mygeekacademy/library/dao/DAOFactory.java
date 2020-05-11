@@ -5,10 +5,10 @@ import by.mygeekacademy.library.dao.impl.BookDAOImpl;
 import by.mygeekacademy.library.dao.impl.ReaderDAOImpl;
 import by.mygeekacademy.library.dao.impl.OrderDAOImpl;
 import by.mygeekacademy.library.dao.util.DatabaseUtil;
-import by.mygeekacademy.library.dao.util.DatabaseNames;
+import by.mygeekacademy.library.dao.util.DatabaseName;
 
 public final class DAOFactory {
-    private static final DatabaseUtil databaseConnection = new DatabaseUtil(DatabaseNames.MAIN_DATABASE);
+    private static final DatabaseUtil databaseConnection = new DatabaseUtil(DatabaseName.MAIN_DATABASE);
 
     private static final BookDAO bookDAO = new BookDAOImpl(databaseConnection);
     private static final ReaderDAO readerDAO = new ReaderDAOImpl(databaseConnection);
