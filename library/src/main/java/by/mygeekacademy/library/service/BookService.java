@@ -16,4 +16,6 @@ public interface BookService {
 
     void listAllBooks();
     void showBook(int id);
+    int countAll();
+    void listPage(int number);
 }

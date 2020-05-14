@@ -71,17 +71,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     public LinkedList<Author> readAll() {
         try {
             String query = String.format("SELECT * FROM %s.Authors", database);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            LinkedList<Author> authors = new LinkedList<>();
-
-            while(resultSet.next()) {
-                authors.add(extractReaderFromResultSet(resultSet));
-            }
-            System.out.println(authors);
-            logger.debug("Objects have been read successful");
-            return authors;
+            return getAuthors(query);
         } catch (SQLException e) {
             System.out.println(e.toString());
             logger.error(e.toString());
@@ -127,6 +117,54 @@ public class AuthorDAOImpl implements AuthorDAO {
         }
         logger.debug("Objects hasn't been deleted");
         return false;
+    }
+
+    @Override
+    public int countAll() {
+        int result = -1;
+        try {
+            String query = String.format("SELECT COUNT(*) AS amount FROM %s.Authors", database);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt("amount");
+                logger.debug("Amount of authors: " + result);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            logger.error(e.toString());
+        }
+        return result;
+    }
+
+    @Override
+    public LinkedList<Author> readPage(int start) {
+        try {
+            String query = String.format(
+                    "DECLARE @StartRow int = %d, @RowsPerPage int = 7;" +
+                            "\nSELECT * FROM %s.Authors" +
+                            "\nORDER BY id ASC" +
+                            "\nOFFSET @StartRow - 1" +
+                            "\nROWS FETCH NEXT @RowsPerPage ROWS ONLY;", start, database);
+            return getAuthors(query);
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            logger.error(e.toString());
+        }
+        logger.debug("Objects have been read as empty one");
+        return null;
+    }
+
+    private LinkedList<Author> getAuthors(String query) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        LinkedList<Author> authors = new LinkedList<>();
+
+        while(resultSet.next()) {
+            authors.add(extractReaderFromResultSet(resultSet));
+        }
+        return authors;
     }
 
     private Author extractReaderFromResultSet(ResultSet resultSet) throws SQLException {

@@ -68,6 +68,19 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public int countAll() {
+        return dao.countAll();
+    }
+
+    @Override
+    public void listPage(int number) {
+        List<Book> page = dao.readPage(number);
+        for (Book book : page) {
+            System.out.println("\n" + book);
+        }
+    }
+
     private void checkBook(Book book) {
         if (book == null) {
             throw new ValidationException("Invalid book.");

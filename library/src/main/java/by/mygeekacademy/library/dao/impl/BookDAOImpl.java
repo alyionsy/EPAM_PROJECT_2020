@@ -32,15 +32,7 @@ public class BookDAOImpl implements BookDAO {
     public List<Book> findByYear(int year) {
         try {
             String query = String.format("SELECT * FROM %s.Books WHERE year=%d", database, year);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<Book> searchResult = new ArrayList<>();
-            while(resultSet.next()) {
-                searchResult.add(extractReaderFromResultSet(resultSet));
-            }
-            logger.debug("Objects have been found");
-            return searchResult;
+            return getBooks(query);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e.toString());
@@ -53,15 +45,7 @@ public class BookDAOImpl implements BookDAO {
     public List<Book> findByName(String name) {
         try {
             String query = String.format("SELECT * FROM %s.Books WHERE name='%s'", database, name);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<Book> searchResult = new ArrayList<>();
-            while(resultSet.next()) {
-                searchResult.add(extractReaderFromResultSet(resultSet));
-            }
-            logger.debug("Objects have been found");
-            return searchResult;
+            return getBooks(query);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e.toString());
@@ -74,20 +58,59 @@ public class BookDAOImpl implements BookDAO {
     public List<Book> findByAuthorID(int id) {
         try {
             String query = String.format("SELECT * FROM %s.Books WHERE authorID=%d", database, id);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<Book> searchResult = new ArrayList<>();
-            while(resultSet.next()) {
-                searchResult.add(extractReaderFromResultSet(resultSet));
-            }
-            logger.debug("Objects have been found");
-            return searchResult;
+            return getBooks(query);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
         logger.debug("Objects haven't been found");
+        return null;
+    }
+
+    private LinkedList<Book> getBooks(String query) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        LinkedList<Book> searchResult = new LinkedList<>();
+        while(resultSet.next()) {
+            searchResult.add(extractReaderFromResultSet(resultSet));
+        }
+        return searchResult;
+    }
+
+    @Override
+    public int countAll() {
+        int result = -1;
+        try {
+            String query = String.format("SELECT COUNT(*) AS amount FROM %s.Authors", database);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt("amount");
+                logger.debug("Amount of authors: " + result);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            logger.error(e.toString());
+        }
+        return result;
+    }
+
+    @Override
+    public LinkedList<Book> readPage(int start) {
+        try {
+            String query = String.format(
+                    "DECLARE @StartRow int = %d, @RowsPerPage int = 5;" +
+                            "\nSELECT * FROM %s.Books" +
+                            "\nORDER BY id ASC" +
+                            "\nOFFSET @StartRow - 1" +
+                            "\nROWS FETCH NEXT @RowsPerPage ROWS ONLY;", start, database);
+            return getBooks(query);
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            logger.error(e.toString());
+        }
+        logger.debug("Objects have been read as empty one");
         return null;
     }
 

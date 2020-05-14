@@ -40,7 +40,7 @@ public class BookSubMenu {
                     BookAction.deleteBook();
                     break;
                 case 8:
-                    BookAction.listAllBooks();
+                    BookAction.listBooks();
                     break;
                 case 9:
                     Menu.showMainMenu();

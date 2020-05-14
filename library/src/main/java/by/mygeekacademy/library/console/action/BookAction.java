@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class BookAction {
     private static final BookService service = new BookServiceImpl();
     private static final Logger logger = LogManager.getLogger(BookAction.class.getName());
+    private static final int PAGE_LENGTH = 5;
 
     public static void addBook() {
         try {
@@ -199,8 +200,44 @@ public class BookAction {
         }
     }
 
-    public static void listAllBooks() {
-        service.listAllBooks();
+    public static void listBooks() {
+        Scanner scanner = new Scanner(System.in);
+        int count = service.countAll();
+        int pages;
+        if (count % PAGE_LENGTH == 0) {
+            pages = service.countAll() / PAGE_LENGTH;
+        }
+        else {
+            pages = service.countAll() / PAGE_LENGTH + 1;
+        }
+
+        for (int i = 1; i <= pages; i++) {
+            page(i, pages);
+            System.out.println("[N] - NEXT PAGE, [Q] - EXIT");
+            boolean indicator = true;
+            while (indicator) {
+                if (scanner.hasNext()) {
+                    String result = scanner.nextLine();
+                    switch (result) {
+                        case "N":
+                            indicator = false;
+                            break;
+                        case "Q":
+                            indicator = false;
+                            i = pages;
+                            break;
+                        default:
+                            System.out.println("Try again.");
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    private static void page(int number, int pages) {
+        System.out.println("\n[ PAGE " + number + " OF " + pages + " ]");
+        service.listPage((number - 1) * PAGE_LENGTH + 1);
     }
 
     public static void showBook(int id) {

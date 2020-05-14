@@ -27,7 +27,7 @@ public class AuthorSubMenu {
                     AuthorAction.deleteAuthor();
                     break;
                 case 4:
-                    AuthorAction.listAllAuthors();
+                    AuthorAction.listAuthors();
                     break;
                 case 5:
                     Menu.showMainMenu();

@@ -2,6 +2,9 @@ package by.mygeekacademy.library.dao;
 
 import by.mygeekacademy.library.domain.Author;
 
-public interface AuthorDAO extends GenericDAO<Author> {
+import java.util.LinkedList;
 
+public interface AuthorDAO extends GenericDAO<Author> {
+    int countAll();
+    LinkedList<Author> readPage(int number);
 }

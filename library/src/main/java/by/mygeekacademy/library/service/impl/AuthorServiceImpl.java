@@ -51,6 +51,19 @@ public class AuthorServiceImpl implements AuthorService {
         }
     }
 
+    @Override
+    public int countAll() {
+        return dao.countAll();
+    }
+
+    @Override
+    public void listPage(int number) {
+        List<Author> page = dao.readPage(number);
+        for (Author author : page) {
+            System.out.println("\n" + author);
+        }
+    }
+
     private void checkAuthor(Author author) {
         if (author == null) {
             throw new ValidationException("Invalid author.");

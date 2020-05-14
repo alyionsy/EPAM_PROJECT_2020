@@ -10,4 +10,6 @@ public interface AuthorService {
 
     void listAllAuthors();
     void showAuthor(int id);
+    int countAll();
+    void listPage(int number);
 }
