@@ -9,7 +9,6 @@ import by.mygeekacademy.library.service.BookService;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-
     private static final int MIN_YEAR = 1000;
     private static final BookDAO dao = DAOFactory.getBookDAO();
 
