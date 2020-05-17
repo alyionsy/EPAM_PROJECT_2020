@@ -13,9 +13,9 @@ public class ReaderServiceImpl implements ReaderService {
     private static final ReaderDAO dao = DAOFactory.getReaderDAO();
 
     @Override
-    public boolean create(Reader reader) {
+    public void create(Reader reader) {
         checkReader(reader);
-        return dao.create(reader);
+        dao.create(reader);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
-    public boolean update(Reader reader) {
+    public void update(Reader reader) {
         checkReader(reader);
-        return dao.update(reader);
+        dao.update(reader);
     }
 
     @Override
-    public boolean delete(int id) {
-        return dao.delete(id);
+    public void delete(Reader reader) {
+        dao.delete(reader);
     }
 
     @Override

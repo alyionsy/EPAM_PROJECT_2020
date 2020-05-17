@@ -30,11 +30,7 @@ public class AuthorAction {
                 author.setSecondName(scanner.nextLine());
             }
 
-            if (service.create(author)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to create author.");
-            }
+            service.create(author);
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -63,11 +59,7 @@ public class AuthorAction {
                 author.setSecondName(scanner.nextLine());
             }
 
-            if (service.update(author)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update reader.");
-            }
+            service.update(author);
         } catch (ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -83,7 +75,9 @@ public class AuthorAction {
             id = scanner.nextInt();
         }
 
-        if (service.delete(id)) {
+        Author author = service.read(id);
+        if (author != null) {
+            service.delete(author);
             System.out.println("Deleted successful.");
         }
         else {
@@ -107,32 +101,38 @@ public class AuthorAction {
             System.out.println("[N] - NEXT PAGE, [Q] - EXIT");
             boolean indicator = true;
             while (indicator) {
-            if (scanner.hasNext()) {
-                String result = scanner.nextLine();
-                switch (result) {
-                    case "N":
-                        indicator = false;
-                        break;
-                    case "Q":
-                        indicator = false;
-                        i = pages;
-                        break;
-                    default:
-                        System.out.println("Try again.");
-                        break;
+                if (scanner.hasNext()) {
+                    String result = scanner.nextLine();
+                    switch (result) {
+                        case "N":
+                        case "n":
+                            indicator = false;
+                            break;
+                        case "Q":
+                        case "q":
+                            indicator = false;
+                            i = pages;
+                            break;
+                        default:
+                            System.out.println("Try again.");
+                            break;
+                    }
                 }
-            }
             }
         }
     }
 
     private static void page(int number, int pages) {
         System.out.println("\n[ PAGE " + number + " OF " + pages + " ]");
-        service.listPage((number - 1) * PAGE_LENGTH + 1);
+        service.listPage(number);
     }
 
     public static void showAuthor(int id) {
         service.showAuthor(id);
+    }
+
+    public static void showAllAuthors() {
+        service.listAllAuthors();
     }
 
 }

@@ -29,11 +29,7 @@ public class ReaderAction {
                 reader.setSecondName(scanner.nextLine());
             }
 
-            if (service.create(reader)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to create reader.");
-            }
+            service.create(reader);
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -62,11 +58,7 @@ public class ReaderAction {
                 reader.setSecondName(scanner.nextLine());
             }
 
-            if (service.update(reader)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update reader.");
-            }
+            service.update(reader);
         } catch (ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -82,7 +74,9 @@ public class ReaderAction {
             id = scanner.nextInt();
         }
 
-        if (service.delete(id)) {
+        Reader reader = service.read(id);
+        if (reader != null) {
+            service.delete(reader);
             System.out.println("Deleted successful.");
         }
         else {

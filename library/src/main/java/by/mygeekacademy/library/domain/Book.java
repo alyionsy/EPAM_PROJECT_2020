@@ -1,12 +1,36 @@
 package by.mygeekacademy.library.domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Books")
+@AttributeOverrides({ @AttributeOverride(name = "id", column = @Column(nullable = false, unique = true, updatable = false)) })
 public class Book extends AbstractEntity<Integer> {
+    @Column(name = "name")
     private String name;
+    @Column(name = "authorID")
     private int authorID;
+    @Column(name = "year")
     private int year;
-    private String description; // can be empty
+    @Column(name = "description")
+    private String description;
+
+    public Book() {
+    }
+
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
+    public Integer getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Integer id) {
+        super.setId(id);
+    }
 
     public String getName() {
         return name;

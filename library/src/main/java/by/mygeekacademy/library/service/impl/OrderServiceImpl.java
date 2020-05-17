@@ -13,9 +13,9 @@ public class OrderServiceImpl implements OrderService {
     private static final OrderDAO dao = DAOFactory.getOrderDAO();
 
     @Override
-    public boolean create(Order order) {
+    public void create(Order order) {
         checkOrder(order);
-        return dao.create(order);
+        dao.create(order);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean update(Order order) {
+    public void update(Order order) {
         checkOrder(order);
-        return dao.update(order);
+        dao.update(order);
     }
 
     @Override
-    public boolean delete(int id) {
-        return dao.delete(id);
+    public void delete(Order order) {
+        dao.delete(order);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ValidationException("Invalid book ID.");
         }
 
-        if (order.getReaderID() < 0) {
+        if (order.getReadID() < 0) {
             throw new ValidationException("Invalid reader ID.");
         }
     }

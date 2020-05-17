@@ -5,10 +5,10 @@ import by.mygeekacademy.library.domain.Order;
 import java.util.List;
 
 public interface OrderService {
-    boolean create(Order order);
+    void create(Order order);
     Order read(int id);
-    boolean update(Order order);
-    boolean delete(int id);
+    void update(Order order);
+    void delete(Order order);
 
     List<Order> findByReaderID(int id);
     List<Order> findByBookID(int id);

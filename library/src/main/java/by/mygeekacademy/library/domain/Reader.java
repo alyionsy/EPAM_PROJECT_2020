@@ -1,10 +1,30 @@
 package by.mygeekacademy.library.domain;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Readers")
 public class Reader extends AbstractEntity<Integer> {
+    @Column(name = "name")
     private String name;
+    @Column(name = "secondName")
     private String secondName;
+
+    public Reader() {
+    }
+
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
+    public Integer getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Integer id) {
+        super.setId(id);
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -35,8 +55,8 @@ public class Reader extends AbstractEntity<Integer> {
         return java.util.Objects.hash(super.hashCode(), name, secondName);
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "Reader{"
                 + "id=" + getId() +
                 ", readerName='" + name + '\'' +

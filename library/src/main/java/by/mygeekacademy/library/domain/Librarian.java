@@ -1,10 +1,31 @@
 package by.mygeekacademy.library.domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Librarians")
 public class Librarian extends AbstractEntity<Integer> {
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
+
+    public Librarian() {
+    }
+
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
+    public Integer getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Integer id) {
+        super.setId(id);
+    }
 
     public String getUsername() {
         return username;

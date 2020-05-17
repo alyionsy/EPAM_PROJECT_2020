@@ -9,8 +9,8 @@ public class LibrarianServiceImpl implements LibrarianService {
     private static final LibrarianDAO dao = DAOFactory.getLibrarianDAO();
 
     @Override
-    public boolean create(Librarian librarian) {
-        return dao.create(librarian);
+    public void create(Librarian librarian) {
+        dao.create(librarian);
     }
 
     @Override
@@ -19,13 +19,13 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-    public boolean update(Librarian librarian) {
-        return dao.update(librarian);
+    public void update(Librarian librarian) {
+        dao.update(librarian);
     }
 
     @Override
-    public boolean delete(int id) {
-        return dao.delete(id);
+    public void delete(Librarian librarian) {
+        dao.delete(librarian);
     }
 
     @Override

@@ -13,9 +13,9 @@ public class AuthorServiceImpl implements AuthorService {
     private static final AuthorDAO dao = DAOFactory.getAuthorDAO();
 
     @Override
-    public boolean create(Author author) {
+    public void create(Author author) {
         checkAuthor(author);
-        return dao.create(author);
+        dao.create(author);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public boolean update(Author author) {
+    public void update(Author author) {
         checkAuthor(author);
-        return dao.update(author);
+        dao.update(author);
     }
 
     @Override
-    public boolean delete(int id) {
-        return dao.delete(id);
+    public void delete(Author author) {
+        dao.delete(author);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void listPage(int number) {
-        List<Author> page = dao.readPage(number);
+    public void listPage(int pageNumber) {
+        List<Author> page = dao.readPage(pageNumber);
         for (Author author : page) {
             System.out.println("\n" + author);
         }

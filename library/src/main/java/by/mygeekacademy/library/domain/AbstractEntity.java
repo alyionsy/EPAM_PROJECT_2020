@@ -1,10 +1,8 @@
 package by.mygeekacademy.library.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class AbstractEntity<K> {
-
     private K id;
 
     public K getId() {

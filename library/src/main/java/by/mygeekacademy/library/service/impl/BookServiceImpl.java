@@ -5,17 +5,21 @@ import by.mygeekacademy.library.dao.DAOFactory;
 import by.mygeekacademy.library.exception.ValidationException;
 import by.mygeekacademy.library.domain.Book;
 import by.mygeekacademy.library.service.BookService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
     private static final int MIN_YEAR = 1000;
+    private static final Logger logger = LogManager.getLogger(BookServiceImpl.class.getName());
     private static final BookDAO dao = DAOFactory.getBookDAO();
 
     @Override
-    public boolean create(Book book) {
+    public void create(Book book) {
         checkBook(book);
-        return dao.create(book);
+        dao.create(book);
     }
 
     @Override
@@ -24,14 +28,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean update(Book book) {
+    public void update(Book book) {
         checkBook(book);
-        return dao.update(book);
+        dao.update(book);
     }
 
     @Override
-    public boolean delete(int id) {
-        return dao.delete(id);
+    public void delete(Book book) {
+        try {
+            dao.delete(book);
+        } catch (PersistenceException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @Override
@@ -73,8 +81,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void listPage(int number) {
-        List<Book> page = dao.readPage(number);
+    public void listPage(int pageNumber) {
+        List<Book> page = dao.readPage(pageNumber);
         for (Book book : page) {
             System.out.println("\n" + book);
         }

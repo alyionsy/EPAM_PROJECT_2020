@@ -1,18 +1,18 @@
 package by.mygeekacademy.library.dao;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import by.mygeekacademy.library.domain.AbstractEntity;
 
 public interface GenericDAO<T extends AbstractEntity> {
-    boolean create(T entity);
+    void create(T entity);
 
     Optional<T> read(int id);
 
-    LinkedList<T> readAll();
+    List<T> readAll();
 
-    boolean update(T entity);
+    void update(T entity);
 
-    boolean delete(int id);
+    void delete(T entity);
 }

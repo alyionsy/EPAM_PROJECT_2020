@@ -22,7 +22,7 @@ public class OrderAction {
 
             System.out.println("Enter reader's ID:");
             if (scanner.hasNext()) {
-                order.setReaderID(scanner.nextInt());
+                order.setReadID(scanner.nextInt());
             }
 
             System.out.println("Enter book's ID:");
@@ -30,11 +30,7 @@ public class OrderAction {
                 order.setBookID(scanner.nextInt());
             }
 
-            if (service.create(order)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to create order.");
-            }
+            service.create(order);
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -61,7 +57,7 @@ public class OrderAction {
             switch (c) {
                 case 1:
                     System.out.println("Enter new reader's ID:");
-                    order.setReaderID(scanner.nextInt());
+                    order.setReadID(scanner.nextInt());
                     break;
                 case 2:
                     System.out.println("Enter new book's ID:");
@@ -72,11 +68,7 @@ public class OrderAction {
                     break;
             }
 
-            if (service.update(order)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update order.");
-            }
+            service.update(order);
         } catch (ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -92,7 +84,9 @@ public class OrderAction {
             id = scanner.nextInt();
         }
 
-        if (service.delete(id)) {
+        Order order = service.read(id);
+        if (order != null) {
+            service.delete(order);
             System.out.println("Deleted successful.");
         }
         else {

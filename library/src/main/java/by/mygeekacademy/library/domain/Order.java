@@ -1,18 +1,38 @@
 package by.mygeekacademy.library.domain;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Orders")
 public class Order extends AbstractEntity<Integer> {
-    private int readerID;
+    @Column(name = "readID")
+    private int readID;
+    @Column(name = "bookID")
     private int bookID;
 
-    public int getReaderID() {
-        return readerID;
+    public Order() {
     }
 
-    public void setReaderID(int readerID) {
-        this.readerID = readerID;
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
+    public Integer getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Integer id) {
+        super.setId(id);
+    }
+
+    public int getReadID() {
+        return readID;
+    }
+
+    public void setReadID(int readerID) {
+        this.readID = readerID;
     }
 
     public int getBookID() {
@@ -29,20 +49,20 @@ public class Order extends AbstractEntity<Integer> {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Order order = (Order) o;
-        return readerID == order.readerID &&
+        return readID == order.readID &&
                 bookID == order.bookID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), readerID, bookID);
+        return Objects.hash(super.hashCode(), readID, bookID);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + getId() +
-                ", readerID=" + readerID +
+                ", readerID=" + readID +
                 ", bookID=" + bookID +
                 '}';
     }

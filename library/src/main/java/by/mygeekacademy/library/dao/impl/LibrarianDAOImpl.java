@@ -1,150 +1,65 @@
 package by.mygeekacademy.library.dao.impl;
 
 import by.mygeekacademy.library.dao.LibrarianDAO;
-import by.mygeekacademy.library.dao.util.DatabaseUtil;
+import by.mygeekacademy.library.dao.util.HibernateSessionFactoryUtil;
 import by.mygeekacademy.library.domain.Librarian;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class LibrarianDAOImpl implements LibrarianDAO {
-    private Connection connection;
-    private String database;
     private static final Logger logger = LogManager.getLogger(LibrarianDAOImpl.class.getName());
 
-    public LibrarianDAOImpl(DatabaseUtil databaseUtil) {
-        try {
-            this.connection = databaseUtil.getConnection();
-            this.database = databaseUtil.getDatabase();
-        }
-        catch (SQLException e){
-            logger.error(e.toString());
-            DatabaseUtil.connectionFailed();
-        }
-    }
-
     @Override
-    public boolean create(Librarian entity) {
-        try {
-            String query = String.format(
-                    "INSERT INTO %s.Librarians (username, password)" +
-                            " VALUES ('%s', '%s')",
-                    database, entity.getUsername(), entity.getPassword()
-            );
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-
-        return false;
+    public void create(Librarian entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(entity);
+        transaction.commit();
+        logger.debug("Librarian created: " + entity);
+        session.close();
     }
 
     @Override
     public Optional<Librarian> read(int id) {
-        try {
-            String query = String.format("SELECT * FROM %s.Librarians WHERE id=%d", database, id);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        return Optional.of(HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Librarian.class, id));
+    }
 
-            if (resultSet.next()) {
-                return Optional.of(extractLibrarianFromResultSet(resultSet));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return Optional.empty();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Librarian> readAll() {
+        return (List<Librarian>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM Librarian").list();
     }
 
     @Override
-    public LinkedList<Librarian> readAll() {
-        try {
-            String query = String.format("SELECT * FROM %s.Readers", database);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            LinkedList<Librarian> librarians = new LinkedList<>();
-
-            while(resultSet.next()) {
-                librarians.add(extractLibrarianFromResultSet(resultSet));
-            }
-            return librarians;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
+    public void update(Librarian entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(entity);
+        transaction.commit();
+        logger.debug("Librarian updated: " + entity);
+        session.close();
     }
 
     @Override
-    public boolean update(Librarian entity) {
-        try {
-            String query = String.format(
-                    "UPDATE %s.Librarians SET username='%s', password='%s' WHERE id=%d",
-                    database, entity.getUsername(), entity.getPassword(), entity.getId()
-            );
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        try {
-            String query = String.format("DELETE FROM %s.Librarians WHERE id=%d", database, id);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-        return false;
-    }
-
-    private Librarian extractLibrarianFromResultSet(ResultSet resultSet) throws SQLException {
-        Librarian librarian = new Librarian();
-
-        librarian.setId(resultSet.getInt("id"));
-        librarian.setUsername(resultSet.getString("username"));
-        librarian.setUsername(resultSet.getString("password"));
-
-        return librarian;
+    public void delete(Librarian entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(entity);
+        transaction.commit();
+        logger.debug("Librarian deleted: " + entity);
+        session.close();
     }
 
     @Override
     public boolean findLibrarian(String username, String password) {
-        try {
-            String query = String.format("SELECT COUNT(*) AS amount FROM %s.Librarians WHERE username='%s' AND password='%s'",
-                    database, username, password);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                if (resultSet.getInt("amount") == 1) {
-                    return true;
-                }
-                logger.debug("Invalid librarian.");
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-        return false;
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        String query = String.format("SELECT COUNT(*) FROM Librarian WHERE username='%s' AND password='%s'",
+                username, password);
+        return ((int) (long) session.createQuery(query).uniqueResult()) > 0;
     }
 }

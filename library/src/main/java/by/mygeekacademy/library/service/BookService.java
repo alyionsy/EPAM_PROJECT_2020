@@ -5,10 +5,10 @@ import by.mygeekacademy.library.domain.Book;
 import java.util.List;
 
 public interface BookService {
-    boolean create(Book book);
+    void create(Book book);
     Book read(int id);
-    boolean update(Book book);
-    boolean delete(int id);
+    void update(Book book);
+    void delete(Book book);
 
     List<Book> findByYear(int year);
     List<Book> findByName(String name);

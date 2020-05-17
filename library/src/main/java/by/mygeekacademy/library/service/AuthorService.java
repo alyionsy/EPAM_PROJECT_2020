@@ -3,10 +3,10 @@ package by.mygeekacademy.library.service;
 import by.mygeekacademy.library.domain.Author;
 
 public interface AuthorService {
-    boolean create(Author author);
+    void create(Author author);
     Author read(int id);
-    boolean update(Author author);
-    boolean delete(int id);
+    void update(Author author);
+    void delete(Author author);
 
     void listAllAuthors();
     void showAuthor(int id);

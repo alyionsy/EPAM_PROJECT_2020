@@ -42,11 +42,7 @@ public class BookAction {
                 book.setDescription(scanner.nextLine());
             }
 
-            if (service.create(book)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to create book.");
-            }
+            service.create(book);
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -72,11 +68,7 @@ public class BookAction {
                 book.setName(scanner.nextLine());
             }
 
-            if (service.update(book)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update book.");
-            }
+            service.update(book);
         } catch (ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -102,11 +94,7 @@ public class BookAction {
                 book.setAuthorID(scanner.nextInt());
             }
 
-            if (service.update(book)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update book.");
-            }
+            service.update(book);
         } catch(ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -132,11 +120,7 @@ public class BookAction {
                 book.setYear(scanner.nextInt());
             }
 
-            if (service.update(book)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update book.");
-            }
+            service.update(book);
         } catch(ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -165,11 +149,7 @@ public class BookAction {
                 book.setDescription(scanner.nextLine());
             }
 
-            if (service.update(book)) {
-                System.out.println("Completed.");
-            } else {
-                System.out.println("Failed to update book.");
-            }
+            service.update(book);
         } catch (ValidationException | SQLDataException e) {
             System.out.println(e.getMessage());
             logger.error(e.toString());
@@ -189,9 +169,12 @@ public class BookAction {
                 id = scanner.nextInt();
             }
 
-            if (service.delete(id)) {
+            Book book = service.read(id);
+            if (book != null) {
+                service.delete(book);
                 System.out.println("Deleted successful.");
-            } else {
+            }
+            else {
                 System.out.println("Failed to delete book.");
             }
         } catch (InputMismatchException e) {
@@ -220,9 +203,11 @@ public class BookAction {
                     String result = scanner.nextLine();
                     switch (result) {
                         case "N":
+                        case "n":
                             indicator = false;
                             break;
                         case "Q":
+                        case "q":
                             indicator = false;
                             i = pages;
                             break;
@@ -237,7 +222,7 @@ public class BookAction {
 
     private static void page(int number, int pages) {
         System.out.println("\n[ PAGE " + number + " OF " + pages + " ]");
-        service.listPage((number - 1) * PAGE_LENGTH + 1);
+        service.listPage(number);
     }
 
     public static void showBook(int id) {

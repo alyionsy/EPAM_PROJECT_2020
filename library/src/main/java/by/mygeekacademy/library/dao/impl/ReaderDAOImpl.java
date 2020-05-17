@@ -2,126 +2,56 @@ package by.mygeekacademy.library.dao.impl;
 
 import by.mygeekacademy.library.dao.ReaderDAO;
 import by.mygeekacademy.library.domain.Reader;
-import by.mygeekacademy.library.dao.util.DatabaseUtil;
+import by.mygeekacademy.library.dao.util.HibernateSessionFactoryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.*;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class ReaderDAOImpl implements ReaderDAO {
-    private Connection connection;
-    private String database;
     private static final Logger logger = LogManager.getLogger(ReaderDAOImpl.class.getName());
 
-    public ReaderDAOImpl(DatabaseUtil databaseUtil) {
-        try {
-            this.connection = databaseUtil.getConnection();
-            this.database = databaseUtil.getDatabase();
-        }
-        catch (SQLException e){
-            logger.error(e.toString());
-            DatabaseUtil.connectionFailed();
-        }
-    }
-
     @Override
-    public boolean create(Reader entity) {
-        try {
-            String query = String.format(
-                    "INSERT INTO %s.Readers (name, secondName)" +
-                            " VALUES ('%s', '%s')",
-                    database, entity.getName(), entity.getSecondName()
-            );
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-
-        return false;
+    public void create(Reader entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(entity);
+        transaction.commit();
+        logger.debug("Reader created: " + entity);
+        session.close();
     }
 
     @Override
     public Optional<Reader> read(int id) {
-        try {
-            String query = String.format("SELECT * FROM %s.Readers WHERE id=%d", database, id);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        return Optional.of(HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Reader.class, id));
+    }
 
-            if (resultSet.next()) {
-                return Optional.of(extractReaderFromResultSet(resultSet));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return Optional.empty();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Reader> readAll() {
+        return (List<Reader>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM Reader").list();
     }
 
     @Override
-    public LinkedList<Reader> readAll() {
-        try {
-            String query = String.format("SELECT * FROM %s.Readers", database);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            LinkedList<Reader> readers = new LinkedList<>();
-
-            while(resultSet.next()) {
-                readers.add(extractReaderFromResultSet(resultSet));
-            }
-            return readers;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
+    public void update(Reader entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(entity);
+        transaction.commit();
+        logger.debug("Reader updated: " + entity);
+        session.close();
     }
 
     @Override
-    public boolean update(Reader entity) {
-        try {
-            String query = String.format(
-                    "UPDATE %s.Readers SET name='%s', secondName='%s' WHERE id=%d",
-                    database, entity.getName(), entity.getSecondName(), entity.getId()
-            );
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        try {
-            String query = String.format("DELETE FROM %s.Readers WHERE id=%d", database, id);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            if (preparedStatement.executeUpdate() == 1) {
-                return true;
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.toString());
-        }
-        return false;
-    }
-
-    private Reader extractReaderFromResultSet(ResultSet resultSet) throws SQLException {
-        Reader reader = new Reader();
-
-        reader.setId(resultSet.getInt("id"));
-        reader.setName(resultSet.getString("name"));
-        reader.setSecondName(resultSet.getString("secondName"));
-
-        return reader;
+    public void delete(Reader entity) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(entity);
+        transaction.commit();
+        logger.debug("Reader deleted: " + entity);
+        session.close();
     }
 }

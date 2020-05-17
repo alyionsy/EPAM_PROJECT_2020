@@ -1,10 +1,31 @@
 package by.mygeekacademy.library.domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Authors")
 public class Author extends AbstractEntity<Integer> {
+    @Column(name = "name")
     private String name;
+    @Column(name = "secondName")
     private String secondName;
+
+    public Author() {
+    }
+
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
+    public Integer getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Integer id) {
+        super.setId(id);
+    }
 
     public String getName() {
         return name;
