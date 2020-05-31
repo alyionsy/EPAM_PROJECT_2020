@@ -1,18 +1,17 @@
-package by.mygeekacademy.library.controller;
+package by.mygeekacademy.library.rest.controller;
 
 import by.mygeekacademy.library.domain.Book;
 import by.mygeekacademy.library.service.BookService;
 import by.mygeekacademy.library.service.impl.BookServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RestController
 @RequestMapping("api/book")
-@Controller
 public class BookController {
     private static BookService service;
 

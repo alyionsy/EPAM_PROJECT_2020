@@ -1,4 +1,4 @@
-package by.mygeekacademy.library.run;
+package by.mygeekacademy.library.rest;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

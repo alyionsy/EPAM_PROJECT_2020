@@ -1,18 +1,17 @@
-package by.mygeekacademy.library.controller;
+package by.mygeekacademy.library.rest.controller;
 
 import by.mygeekacademy.library.domain.Order;
 import by.mygeekacademy.library.service.OrderService;
 import by.mygeekacademy.library.service.impl.OrderServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RestController
 @RequestMapping("api/order")
-@Controller
 public class OrderController {
     private static OrderService service;
 
