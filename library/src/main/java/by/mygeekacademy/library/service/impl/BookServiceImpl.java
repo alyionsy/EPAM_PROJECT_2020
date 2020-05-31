@@ -28,6 +28,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> readAll() {
+        return dao.readAll();
+    }
+
+    @Override
     public void update(Book book) {
         checkBook(book);
         dao.update(book);

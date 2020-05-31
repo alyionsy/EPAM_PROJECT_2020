@@ -5,6 +5,8 @@ import by.mygeekacademy.library.dao.LibrarianDAO;
 import by.mygeekacademy.library.domain.Librarian;
 import by.mygeekacademy.library.service.LibrarianService;
 
+import java.util.List;
+
 public class LibrarianServiceImpl implements LibrarianService {
     private static final LibrarianDAO dao = DAOFactory.getLibrarianDAO();
 
@@ -16,6 +18,11 @@ public class LibrarianServiceImpl implements LibrarianService {
     @Override
     public Librarian read(int id) {
         return dao.read(id).orElse(null);
+    }
+
+    @Override
+    public List<Librarian> readAll() {
+        return dao.readAll();
     }
 
     @Override

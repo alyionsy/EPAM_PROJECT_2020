@@ -24,6 +24,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public List<Author> readAll() {
+        return dao.readAll();
+    }
+
+    @Override
     public void update(Author author) {
         checkAuthor(author);
         dao.update(author);

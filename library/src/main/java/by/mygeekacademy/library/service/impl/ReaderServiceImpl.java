@@ -24,6 +24,11 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
+    public List<Reader> readAll() {
+        return dao.readAll();
+    }
+
+    @Override
     public void update(Reader reader) {
         checkReader(reader);
         dao.update(reader);

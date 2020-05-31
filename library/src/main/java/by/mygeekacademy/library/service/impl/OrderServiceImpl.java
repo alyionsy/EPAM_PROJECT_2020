@@ -24,6 +24,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> readAll() {
+        return dao.readAll();
+    }
+
+    @Override
     public void update(Order order) {
         checkOrder(order);
         dao.update(order);

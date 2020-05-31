@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>by.mygeekacademy.library</OriginalElement>
+  <nodes>
+    <node x="644.0" y="752.0">by.mygeekacademy.library.console.action.ReaderAction</node>
+    <node x="16.0" y="507.0">by.mygeekacademy.library.service.BookService</node>
+    <node x="940.0" y="507.0">by.mygeekacademy.library.service.OrderService</node>
+    <node x="344.0" y="284.0">by.mygeekacademy.library.dao.LibrarianDAO</node>
+    <node x="1138.0" y="136.0">by.mygeekacademy.library.domain.Librarian</node>
+    <node x="700.0" y="1038.0">by.mygeekacademy.library.console.Menu</node>
+    <node x="239.0" y="752.0">by.mygeekacademy.library.console.action.AuthorAction</node>
+    <node x="790.0" y="136.0">by.mygeekacademy.library.domain.Reader</node>
+    <node x="0.0" y="609.0">by.mygeekacademy.library.service.impl.BookServiceImpl</node>
+    <node x="172.0" y="284.0">by.mygeekacademy.library.dao.ReaderDAO</node>
+    <node x="466.0" y="609.0">by.mygeekacademy.library.service.impl.AuthorServiceImpl</node>
+    <node x="695.0" y="609.0">by.mygeekacademy.library.service.impl.ReaderServiceImpl</node>
+    <node x="853.0" y="752.0">by.mygeekacademy.library.console.action.OrderAction</node>
+    <node x="626.0" y="114.0">by.mygeekacademy.library.domain.Book</node>
+    <node x="0.0" y="939.0">by.mygeekacademy.library.dao.util.HibernateSessionFactoryUtil</node>
+    <node x="704.0" y="284.0">by.mygeekacademy.library.dao.AuthorDAO</node>
+    <node x="995.0" y="939.0">by.mygeekacademy.library.console.submenu.ReaderSubMenu</node>
+    <node x="352.0" y="148.0">by.mygeekacademy.library.dao.GenericDAO</node>
+    <node x="964.0" y="136.0">by.mygeekacademy.library.domain.Author</node>
+    <node x="500.0" y="136.0">by.mygeekacademy.library.domain.Order</node>
+    <node x="924.0" y="609.0">by.mygeekacademy.library.service.impl.OrderServiceImpl</node>
+    <node x="309.0" y="939.0">by.mygeekacademy.library.dao.util.DatabaseName</node>
+    <node x="16.0" y="284.0">by.mygeekacademy.library.dao.BookDAO</node>
+    <node x="702.5" y="0.0">by.mygeekacademy.library.domain.AbstractEntity</node>
+    <node x="567.0" y="1038.0">by.mygeekacademy.library.run.Start</node>
+    <node x="524.0" y="397.0">by.mygeekacademy.library.dao.impl.OrderDAOImpl</node>
+    <node x="197.0" y="1038.0">by.mygeekacademy.library.console.submenu.OrderSubMenu</node>
+    <node x="0.0" y="1038.0">by.mygeekacademy.library.console.submenu.AuthorSubMenu</node>
+    <node x="446.0" y="752.0">by.mygeekacademy.library.console.action.BookAction</node>
+    <node x="0.0" y="752.0">by.mygeekacademy.library.dao.DAOFactory</node>
+    <node x="688.0" y="386.0">by.mygeekacademy.library.dao.impl.AuthorDAOImpl</node>
+    <node x="328.0" y="397.0">by.mygeekacademy.library.dao.impl.LibrarianDAOImpl</node>
+    <node x="711.0" y="507.0">by.mygeekacademy.library.service.ReaderService</node>
+    <node x="533.0" y="939.0">by.mygeekacademy.library.console.authentication.Authorizer</node>
+    <node x="482.0" y="507.0">by.mygeekacademy.library.service.AuthorService</node>
+    <node x="156.0" y="397.0">by.mygeekacademy.library.dao.impl.ReaderDAOImpl</node>
+    <node x="0.0" y="386.0">by.mygeekacademy.library.dao.impl.BookDAOImpl</node>
+    <node x="750.0" y="939.0">by.mygeekacademy.library.exception.ValidationException</node>
+    <node x="213.0" y="609.0">by.mygeekacademy.library.service.impl.LibrarianServiceImpl</node>
+    <node x="386.0" y="1038.0">by.mygeekacademy.library.console.submenu.BookSubMenu</node>
+    <node x="229.0" y="507.0">by.mygeekacademy.library.service.LibrarianService</node>
+    <node x="540.0" y="284.0">by.mygeekacademy.library.dao.OrderDAO</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="by.mygeekacademy.library.service.impl.AuthorServiceImpl" target="by.mygeekacademy.library.service.AuthorService">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.service.impl.BookServiceImpl" target="by.mygeekacademy.library.service.BookService">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.OrderDAO" target="by.mygeekacademy.library.dao.GenericDAO">
+      <point x="0.0" y="-26.0" />
+      <point x="596.0" y="264.0" />
+      <point x="441.6" y="264.0" />
+      <point x="25.600000000000023" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.GenericDAO" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-26.0" />
+      <point x="416.0" y="74.0" />
+      <point x="715.8333333333334" y="74.0" />
+      <point x="-66.66666666666663" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.impl.ReaderDAOImpl" target="by.mygeekacademy.library.dao.ReaderDAO">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.domain.Book" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-60.0" />
+      <point x="698.0" y="94.0" />
+      <point x="769.1666666666666" y="94.0" />
+      <point x="-13.333333333333371" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.domain.Author" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-38.0" />
+      <point x="1041.0" y="84.0" />
+      <point x="822.5" y="84.0" />
+      <point x="40.0" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.ReaderDAO" target="by.mygeekacademy.library.dao.GenericDAO">
+      <point x="0.0" y="-26.0" />
+      <point x="232.0" y="264.0" />
+      <point x="390.4" y="264.0" />
+      <point x="-25.600000000000023" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.service.impl.LibrarianServiceImpl" target="by.mygeekacademy.library.service.LibrarianService">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.LibrarianDAO" target="by.mygeekacademy.library.dao.GenericDAO">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.impl.LibrarianDAOImpl" target="by.mygeekacademy.library.dao.LibrarianDAO">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.impl.AuthorDAOImpl" target="by.mygeekacademy.library.dao.AuthorDAO">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.impl.OrderDAOImpl" target="by.mygeekacademy.library.dao.OrderDAO">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.domain.Order" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-38.0" />
+      <point x="553.0" y="84.0" />
+      <point x="742.5" y="84.0" />
+      <point x="-40.0" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.impl.BookDAOImpl" target="by.mygeekacademy.library.dao.BookDAO">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.BookDAO" target="by.mygeekacademy.library.dao.GenericDAO">
+      <point x="0.0" y="-26.0" />
+      <point x="68.0" y="254.0" />
+      <point x="364.79999999999995" y="254.0" />
+      <point x="-51.19999999999999" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.domain.Librarian" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-38.0" />
+      <point x="1206.0" y="74.0" />
+      <point x="849.1666666666667" y="74.0" />
+      <point x="66.66666666666674" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.domain.Reader" target="by.mygeekacademy.library.domain.AbstractEntity">
+      <point x="0.0" y="-38.0" />
+      <point x="867.0" y="94.0" />
+      <point x="795.8333333333334" y="94.0" />
+      <point x="13.333333333333371" y="27.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.dao.AuthorDAO" target="by.mygeekacademy.library.dao.GenericDAO">
+      <point x="0.0" y="-26.0" />
+      <point x="764.0" y="254.0" />
+      <point x="467.19999999999993" y="254.0" />
+      <point x="51.19999999999999" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.service.impl.OrderServiceImpl" target="by.mygeekacademy.library.service.OrderService">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="by.mygeekacademy.library.service.impl.ReaderServiceImpl" target="by.mygeekacademy.library.service.ReaderService">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6083294983893235" x="898.0503176433688" y="996.3169405552355" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
