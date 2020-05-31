@@ -1,4 +1,4 @@
-package by.mygeekacademy.library.rest.controller;
+package by.mygeekacademy.library.controller;
 
 import by.mygeekacademy.library.domain.Librarian;
 import by.mygeekacademy.library.service.LibrarianService;
